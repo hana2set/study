@@ -127,7 +127,7 @@ public class Order {
                 case ORDER:
                     if (num == 1) {
                         Barista.makeDrink(basket);
-                        basket = new ArrayList<>();
+                        basket = new ArrayList<>(); //장바구니 초기화
                         printMenu();
                     } else if (num == 2) {
                         printMenu();
