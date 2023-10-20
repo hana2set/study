@@ -282,7 +282,7 @@ public class Order {
             System.out.println(
                     iceText
                             + " " + String.format("%-" + titleLength + "s", item.getMenu().getName())
-                            + " | " + String.format("%2s", item.getCount()) + " 개"
+                            + " |" + String.format("%3s", item.getCount()) + " 개"
                             + " | ₩ " + String.format("%5d", calculateMenuPrice(item))
                             + " | " + item.getMenu().getDesc()
             );
