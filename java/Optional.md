@@ -19,15 +19,19 @@ optional은 악명높은 NFE와 같이 예기치 못한 오류가 발생할 수 
 <br>
 
 
-<details>
+<details open>
 <summary>참고: Optional 사용에 대한 어려움이 드러나는 글</summary>
-  vJUG24이 제시한 Optional 스타일 규칙<br><br>
-  1. 절대 Optional 변수 혹은 반환값에 null을 사용하지 마세요.<br>
-  2. 절대 값이 있음을 증명할 수 없으면 Optional.get()를 사용하지 마세요.<br>
-  3. Optional.isPresent()이나 Optional.get() 보다 다른 대체 API들을 선호하세요.<br>
-  4. 값을 얻기 위해 Optional을 사용해 chaining methods를 만드는 것은 정말 좋지 않은 생각입니다.<br>
-  5. 중첩된 Optional 체인이 있거나 중간 결과가 Optional인 경우 너무 복잡해질 수 있습니다.<br>
-  6. 필드, 매개변수, Collections에서 Optional 사용을 피하세요. <br>
+  
+  <br>
+  
+  __vJUG24이 제시한 Optional 스타일 규칙__<br>
+  
+  1. 절대 Optional 변수 혹은 반환값에 null을 사용하지 마세요.<br>  
+  1. 절대 값이 있음을 증명할 수 없으면 Optional.get()를 사용하지 마세요.<br>  
+  3. Optional.isPresent()이나 Optional.get() 보다 다른 대체 API들을 선호하세요.<br>  
+  4. 값을 얻기 위해 Optional을 사용해 chaining methods를 만드는 것은 정말 좋지 않은 생각입니다.<br>  
+  5. 중첩된 Optional 체인이 있거나 중간 결과가 Optional인 경우 너무 복잡해질 수 있습니다.<br>  
+  6. 필드, 매개변수, Collections에서 Optional 사용을 피하세요. <br>  
   7. Optional을 사용하여 Collection Type(List, Set, Map)을 래핑하지 마세요. 대신, 빈 Collection을 사용하여 값이 없음을 나타내세요.<br>
 
   출처: https://stuartmarks.wordpress.com/2016/09/27/vjug24-session-on-optional/
