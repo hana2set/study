@@ -13,7 +13,8 @@ import javax.persistence.Id;
 @Table(name = "member") // 매핑할 테이블의 이름을 지정
 public class Member {
 
-    @Id @GeneratedValue
+    @Id //필수, PK
+    @GeneratedValue //자동생성
     @Column(name = "MEMBER_ID")
     private Long id;
 
@@ -36,3 +37,4 @@ public class Member {
 * 기본 생성자 필수
 * final, enum, interface, inner 클래스에 사용 X
 * 필드에 fianl 사용 X
+
