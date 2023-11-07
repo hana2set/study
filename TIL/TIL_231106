@@ -1,0 +1,12 @@
+delete에서 requestbody 사용 권장x
+tomcat7에서 requestparam 사용 불가? -> pathVariable
+
+http put, delete, post method
+https://metamug.com/article/post-vs-put-in-rest-api.html
+
+기본값 Get에서 object-modelAttribute // post에서 ?
+
+IoC, DI
+
+https://brainstation.io/learn/sql/naming-conventions
+https://launchbylunch.com/posts/2014/Feb/16/sql-naming-conventions/
