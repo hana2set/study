@@ -1,0 +1,30 @@
+BCrypt 해쉬함수
+
+https://seongmun-hong.github.io/spring/Spring-Bean-Create
+@bean : https://docs.spring.io/spring-framework/reference/core/beans/java/bean-annotation.html
+
+SpringBootTest
+
+Bean 연결 방법
+//    // 1. 기본적으로  타입으로 검색, 연결 못하면 이름으로 검색
+//    @Autowired
+//    Food pizza;
+//
+//    @Autowired
+//    Food chicken;
+
+//    // 2. @Primary를 구현 객체에 두면 자동 주입
+//    @Autowired
+//    Food food;
+
+//    // 3. @Qualifier를 통해 직접 지정 가능. 우선순위 높음음
+//    @Autowired
+//    @Qualifier("pizza")
+//    Food food;
+
+
+JWT
+https://teamsparta.notion.site/Spring-Master-3-09710f1a35ab4bcab3003ec2ebcadf93#e1870c031f264273900d842b1fd8c060
+
+url 인코딩
+https://it-eldorado.tistory.com/143
