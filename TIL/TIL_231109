@@ -1,0 +1,7 @@
+Bearer - 토큰 규칙
+
+lombok @slf4j
+
+new StringBuilder().append(n).reverse().chars().map(Character::getNumericValue).toArray();
+
+33:01

@@ -1,5 +1,6 @@
 spring data jpa -> 재정리 필요
 https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-creation
+https://teamsparta.notion.site/Spring-Master-2-7767ed8defb946e5bafa1634e54d09ad
 
 toList vs collect(Collectors.toList())
 https://velog.io/@cieroyou/Stream%EC%9D%84-List%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EB%8A%94-%EB%8B%A4%EC%96%91%ED%95%9C-%EB%B0%A9%EB%B2%95%EA%B3%BC-%EC%B0%A8%EC%9D%B4Collectors.toList-vs-Stream.toList
