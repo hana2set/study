@@ -1,0 +1,16 @@
+filter
+@SpringBootApplication/*(exclude = SecurityAutoConfiguration.class) // Spring Security 인증 기능 제외*/
+CSRF
+
+spring Security - filter chain
+https://teamsparta.notion.site/Spring-Master-3-09710f1a35ab4bcab3003ec2ebcadf93#e1870c031f264273900d842b1fd8c060
+
+@AuthenticationPrincipal
+
+UsernamePasswordAuthenticationFilter 
+
+7:24
+
+
+primitives type not support 
+https://stackoverflow.com/questions/1467913/arrays-aslist-not-working-as-it-should
