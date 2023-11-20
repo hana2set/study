@@ -1,1 +1,21 @@
  effectively final
+ https://madplay.github.io/post/effectively-final-in-java
+
+ https://developers.naver.com/docs/serviceapi/search/shopping/shopping.md#%EC%87%BC%ED%95%91
+
+
+bind 방식?
+ https://tecoble.techcourse.co.kr/post/2020-09-29-spring-properties-binding/
+
+JPA 양방향 관계
+@OneToMany
+@OneToOne
+@ManyToOne
+
+양방향일때 외래키 주인 지정해줘야함 
+-> 아닌쪽에 @OneToOne(mappedBy = "{abc}") 
+-> abc 는 상대 Entity의 필드명 의미
+
+N:M 경우 mappedBy 생략시 중간테이블 강제 생성
+
+@JoinColumn생략 가능

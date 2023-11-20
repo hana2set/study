@@ -1,0 +1,12 @@
+https://vanillacake369.notion.site/38-a3ec1fd000044b5895cf994f0fee8617#80d532cfff7447acabaeff049bf90a9c
+
+https://www.baeldung.com/java-classloaders
+
+연관관계
+왜래키의 주인이 왜래키를 갖는 것이 좋음 (아니면 추가 update 발생)
+N:1 -> fk가 N -> 외래키의 주인 == DB 왜래키(N)
+1:N -> fk가 N -> 외래키의 주인 != DB 왜래키(1) -> 추가 update 발생 -> 비효율
+
+티스토리 개발자툴로 접속시 튕김 -
+https://inpa.tistory.com/entry/DB-%F0%9F%93%9A-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%AA%A8%EB%8D%B8%EB%A7%81-1N-%EA%B4%80%EA%B3%84-%F0%9F%93%88-ERD-%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8
+못찾겠음

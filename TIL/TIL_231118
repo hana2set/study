@@ -1,0 +1,16 @@
+final @value
+https://mangkyu.tistory.com/189
+https://www.zodaland.com/tip/64
+https://tecoble.techcourse.co.kr/post/2020-09-29-spring-properties-binding/
+
+@EnableConfigurationProperties 
+https://jake-seo-dev.tistory.com/604#%--EnableConfigurationProperties%--%EB%-E%--%-F
+
+
+
+@PropertySource("classpath:keys.properties")
+
+cron
+https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/scheduling/support/CronExpression.html
+
+@Scheduled(cron = "*/10 * * * * *") 1초 마다

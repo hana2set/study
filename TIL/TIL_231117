@@ -1,0 +1,5 @@
+//Food 객체 -> @ManyToOne(fetch = FetchType.LAZY) 로 변경시
+@Transcational 필요 (지연로딩시 영속성이어야함.)
+
+cascade
+orphan
