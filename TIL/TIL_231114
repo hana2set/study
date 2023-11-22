@@ -2,6 +2,7 @@ https://www.javatpoint.com/java-arraylist
 https://www.baeldung.com/java-arrays-aslist-vs-new-arraylist
 https://www.geeksforgeeks.org/arrays-aslist-method-in-java-with-examples/
 
+asList 안됨 stream(int[] 됨)
 어떻게 Arrays.ArrayList가 ?
 T... 열거형이 int[]는 열거하지 못하는듯
 

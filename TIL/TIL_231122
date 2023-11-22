@@ -1,0 +1,11 @@
+isExist -> exists
+isUserExists -> userExists
+https://stackoverflow.com/questions/1566745/boolean-method-naming-readability
+
+
+https://iam.furo.one/post/jwt-security
+
+
+/231117 중복
+oneToMany -> default 지연로딩
+지연로딩 -> Transaction필요

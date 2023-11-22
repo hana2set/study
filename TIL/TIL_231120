@@ -9,3 +9,8 @@ https://kbwplace.tistory.com/167
 
 중복시http status
 https://deveric.tistory.com/62
+
+Using DTO is mostly considered an anti-pattern in EJB3
+
+
+No serializer found for class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor and no properties discovered to create BeanSerializer
