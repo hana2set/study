@@ -9,3 +9,25 @@ https://iam.furo.one/post/jwt-security
 /231117 중복
 oneToMany -> default 지연로딩
 지연로딩 -> Transaction필요
+
+
+브랜치 전략
+https://company.wingeat.com/story/?idx=11622854&bmode=view
+https://dev.to/varbsan/a-simplified-convention-for-naming-branches-and-commits-in-git-il4
+
+https://www.inbogi.com/bok/2020/04/1/
+
+커밋 가이드라인
+https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines
+
+버전 관리
+https://sonseungha.tistory.com/581
+https://javapp.tistory.com/269
+
+
+
+제의
+https://devfunny.tistory.com/318
+
+https://umbum.dev/1064/
+https://umbum.dev/1066/

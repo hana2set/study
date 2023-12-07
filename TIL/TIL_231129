@@ -1,0 +1,13 @@
+https://velog.io/@chaeeun2030/Error-no-suitable-method-found-for-sortintjava.util.Comparatorjava.lang.Object
+https://ifuwanna.tistory.com/232
+
+
+Arrays.stream(score).boxed().sorted(Comparator.reverseOrder()).mapToInt(Integer::intValue).toArray();
+
+https://junit.org/junit5/docs/current/user-guide/#writing-tests-annotations
+
+@test
+service -> 실제 데이터X
+
+테스트는 별도환경에서 돔 
+-> @TestInstance(TestInstance.Lifecycle.PER_CLASS) // 테스트 인스턴스의 생성 단위를 클래스로 변경합니다.

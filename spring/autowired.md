@@ -13,7 +13,7 @@ public class MemoService {
 
 ```
 
-### 기본생성자 anotation으로 구현
+### @RequiredArgsConstructor 으로 구현
 ```java
 @Service
 @RequiredArgsConstructor

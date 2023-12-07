@@ -1,0 +1,25 @@
+BCryptPasswordEncoder -> 랜덤요소 있음
+
+```
+	public BCryptPasswordEncoder(BCryptVersion version, int strength, SecureRandom random) {
+		if (strength != -1 && (strength < BCrypt.MIN_LOG_ROUNDS || strength > BCrypt.MAX_LOG_ROUNDS)) {
+			throw new IllegalArgumentException("Bad strength");
+		}
+		this.version = version;
+		this.strength = (strength == -1) ? 10 : strength;
+		this.random = random;
+	}
+
+```
+
+
+https://stackoverflow.com/questions/28907030/spring-security-authorize-request-for-certain-url-http-method-using-httpsecu
+
+http 지정 X -> 405
+post, get은 403
+
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/DELETE
+
+delete -> 없으면 204 나와야함
+
+https://www.baeldung.com/java-cannot-reference-x-before-supertype-constructor-error
