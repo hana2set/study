@@ -1,0 +1,48 @@
+docker run -p 5432:5432 -e POSTGRES_PASSWORD=pass -e POSTGRES_USER=teasun -e POSTGRES_DB=messenger --name postgres_boot -d postgres
+docker exec -i -t postgres_boot bash
+
+https://www.baeldung.com/entity-to-and-from-dto-for-a-java-spring-application
+
+
+-------- 컨트롤러 역할에 관한 피드백
+* 제가 생각하는 컨트롤러의 역할은 비즈니스 로직을 담고 있는 서비스를 실제 클라이언트와의 통신에 대한 세부 사항과 격리하는 것이라고 생각합니다.
+다시 말해서 실제로 클라이언트와의 통신 방식(HTTP 또는 그 외 방식)이나 request / response에 대한 지식을 가지고 아래와 같은 일들을 처리하게 된다고 생각합니다.
+* 애플리케이션 내부에서 사용되는 도메인 모델과 같은 객체와 request / response DTO 사이에서의 변환을 처리하거나 요청에 대한 기본적인 유효성 검사를 할 수 있음.
+    * 기본적인 유효성 검사라 함은 비즈니스 로직과 관련없는 정말 기본적인 유효성 검사를 의미.
+        * 유저는 한 번에 상품을 10개까지 주문할 수 있다 -> 비즈니스 규칙 -> service
+        * 유저는 상품 수량을 음수로 입력할 수 없다 -> “수량“은 당연히 음수일 수 없으므로 비즈니스 규칙과 관련없는 유효성 검사 -> controller
+        * 상품 수량에 숫자만 입력할 수 있다 -> “수량“은 당연히 숫자만 입력해야 하므로 비즈니스 규칙과 관련없는 유효성 검사 -> controller
+* 또한 예외가 던저진 상황에 그 예외를 적절한 에러 응답값과 HTTP 상태 코드 등으로 변환하여 클라이언트에 응답할 수도 있음.
+이를 통해서 비즈니스 로직을 담고 있는 서비스가 통신 방식이나 request / response의 세부 사항과 강결합되지 않도록 할 수 있습니다.
+예를 들면 API 명세에서 name이라는 필드의 이름을 username이라고 변경했을 때 컨트롤러 또는 컨트롤러의 컨버터 정도만 적절히 수정해주면 실제 비즈니스 로직을 처리하는 서비스에는 어떠한 영향도 없게 할 수 있습니다.
+따라서 위에서 언급한 것과 같이 기본적인 데이터의 유효성 검사에 해당하므로 @Valid annotation을 사용한 validation 처리는 controller에 있는 것이 자연스럽다고 생각합니다.
+추가적으로 저는 비즈니스 규칙과 관련된 검증 로직은 DTO에서 @Valid annotation을 사용하기보다는 직접 구현하는것이 좋은 것 같다고 생각합니다.
+/////
+
+-------- request - entity간 converter 피드백
+하나의 컨버터 클래스를 사용하게 되면 어떤 도메인 모델 또는 어떤 DTO가 변경되든 이 클래스를 수정할 수 밖에 없게 됩니다.
+그렇다면 단일책임원칙을 위반하게 되는 것이 아닐까요?(당연히 나중에는 이 클래스가 어마어마하게 커지기도 하겠죠)
+그리고 이 컨버터는 굳이 spring bean일 필요는 없을 것 같습니다.
+```java
+public static class UserConverter {
+
+    public static User toEntity(UserDto dto) {
+        // ...
+    }
+
+    public static UserDto toDto(User entity) {
+        // ...
+    }
+}
+```
+```java
+UserDto userDto = UserConverter.toDto(userEntity);
+
+User user = UserConverter.toEntity(userDto);
+```
+메서드의 이름을 반드시 toEntity, toDto로 해야하는 것은 아닙니다. 취향에 맞게(또는 컨벤션을 정해서) 쓰시면 될 것 같아요.
+개인적으로 서비스와 그 이후에서는 request / response DTO를 전혀 모르도록 구현하는 편입니다.
+(Layered architecture에서는 상위 레이어가 하위 레이어에 대한 지식을 갖고 참조하거나 의존할 수는 있지만 하위 레이어가 상위 레이어에 대한 지식을 갖고 참조하거나 의존할 수 없습니다).
+그리고 만약 서비스나 서비스 이후의 어딘가에서 여러 인자를 받아야 한다면 이를 별도의 DTO로 선언해서 사용합니다.
+(이 DTO는 클라이언트와의 통신을 위한 것이 아니고 실제로 서비스나 다른 곳에서 사용하기 위한 것이니 controller에 위치하면 안되겠죠).
+Response DTO를 만드는 것 또한 converter를 사용하면 response DTO의 생성자에 JPA entity가 그대로 사용되는 것을 막을 수 있을 것 같습니다.

@@ -1,0 +1,21 @@
+
+ReflectionTestUtils.setField  
+SerializationUtils.clone
+
+```java
+    var action = mockMvc.perform(get("/api/todos")
+        .accept(MediaType.APPLICATION_JSON));
+
+    // then
+    action
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$[?(@.user.username=='" + TEST_USER.getUsername() + "')].todoList[*].id")
+                .value(Matchers.containsInAnyOrder(testTodo1.getId().intValue(), testTodo2.getId().intValue())))
+            .andExpect(jsonPath("$[?(@.user.username=='" + TEST_ANOTHER_USER.getUsername() + "')].todoList[*].id")
+                .value(Matchers.containsInAnyOrder(testAnotherTodo.getId().intValue())));
+    verify(todoService, times(1)).getUserTodoMap();
+
+```
+
+- 개인적으로는 DTO와 entity가 서로간의 변환에 대한 로직을 직접 가지고 있기보다는 서로간의 변환만을 전담하는 컨버터 또는 mapper 객체를 별도로 두는 것을 선호합니다.
+    - 특히 entity가 DTO에 대해 직접적으로 알고 있고, 서로간의 변환을 수행하게 된다면 API에 사소한 변경이 생겼을 때(DTO가 변경되었을 때) 이로 인한 영향이 entity까지 전파되게 됩니다. 즉, entity가 DTO에 의존하게 되며, 서로가 강결합하게 됩니다. 컨버터 또는 mapper 객체를 두어서 이런 결합도를 낮출 수 있다고 생각합니다.
