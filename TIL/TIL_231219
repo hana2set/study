@@ -1,0 +1,172 @@
+영속성 컨텍스트 (1차 캐시)
+영속성 : 데이터를 생성한 프로그램이 종료되어도 사라지지 않는 특성
+
+
+영속성 4가지 상태
+비영속(new/transient) - 엔티티 객체가 만들어져서 아직 저장되지 않은 상태
+영속(managed) - 엔티티가 영속성 컨텍스트에 저장되어, 영속성 컨텍스트가 관리할 수 있는 상태
+준영속(detached) - 엔티티가 영속성 컨텍스트에 저장되어 있다가 분리된 상태
+삭제(removed) - 엔티티를 영속성 컨텍스트와 데이터베이스에서 삭제하겠다고 표시한 상태
+
+entity_lifecycle:
+https://www.mastertheboss.com/wp-content/uploads/2022/12/Screenshot-from-2022-12-28-12-11-31.png
+
+
+
+---
+
+# Raw JPA 테이블 매핑 기능
+## @Entity
+- 객체 관점에서의 이름
+- 디폴트로 클래스명으로 설정됨
+- 엔티티의 이름은 JQL에서 쓰임
+    - JQL : Entity 명으로 쿼리짤때 쓰이는 언어 (ex. JPQL, QueryDsl)
+
+## @Table
+- RDB 의 테이블 이름
+- @Entity의 이름이 테이블의 기본값.
+```java
+@Entity
+@Table(name = "users")
+public class User () {...}
+```
+
+## @Id
+- 엔티티의 주키를 맵핑할 때 사용.
+- 자바의 모든 primitive 타입과 그 랩퍼 타입을 사용할 수 있음
+    - Date랑 BigDecimal, BigInteger도 사용 가능.
+
+## @GeneratedValue
+- 주키의 생성 방법을 맵핑하는 애노테이션
+- 생성 전략과 생성기를 설정할 수 있다.
+    - 기본 전략은 AUTO: 사용하는 DB에 따라 적절한 전략 선택
+    - TABLE, SEQUENCE, IDENTITY 중 하나.
+
+## @Column
+- 기본적으로 @Entity 변수에는 다 적용되어있음.
+- unique
+- nullable
+- length
+- columnDefinition
+
+## @Temporal
+- 날짜. JPA 2.1버전에선 LocalDateTime 지원 X
+
+## @Transient
+- 변수를 컬럼으로 맵핑하지 않음
+
+
+# Raw JPA 필드 타입 매핑 기능
+
+## Value 타입 종류
+- 기본 타입
+    - `**@Column**`
+        - String, Date, Boolean, 과 같은 타입들에 공통으로 사이즈를 제한할 용도로 쓰인다.
+        - Class 에 `@Entity` 가 붙어있으면 자동으로 필드들에 `@Column` 이 붙음
+    - `**@Enumerated**`
+        - Enum 매핑용도로 쓰이며 실무에서는 `@Enumerated(EnumType.*STRING*)` 으로 사용권장
+        > Default 타입인 `ORDINAL` 은 0,1,2.. 값으로 들어가기 때문에 추후 순서가 바뀔 가능성있다.
+
+-  복합 변수 타입
+    - `**@Embeddable`**
+    - `**@Embedded`**
+    - `**@AttributeOverrides**`
+    - `**@AttributeOverride**`
+    ```java
+    @Entity
+    public class Account {
+        @Id @GeneratedValue
+        private Long id;
+
+        @Embedded
+        @AttributeOverrides({
+            @AttributeOverride(name = "street", column = @Column(name = "home_street"))
+        })
+        private Address address;
+    }
+    ```
+    ```java
+    @Embeddable
+    public class Address {
+
+        private String street;
+
+        private String city;
+
+        private String state;
+
+        private String zipCode;
+
+    }
+    ```
+
+# Raw JPA 연관관계 매핑 기능
+
+## `**@OneToOne**`
+- 일대일 관계를 나타내는 매핑 정보
+```java
+// 일대일 양방향
+@Entity
+public class Member {
+  @Id @GeneratedValue
+  @Column(name = "MEMBER_ID")
+  private Long id;
+
+  private String username;
+
+  @OneToOne
+  @JoinColumn(name = "LOCKER_ID")
+  private Locker locker;
+}
+
+@Entity
+public class Locker {
+  @Id @GeneratedValue
+  @Column(name = "LOCKER_ID")
+  private Long id;
+
+  private String name;
+
+  @OneToOne(mappedBy = "locker")
+  private Member member;
+```
+
+## `**@OneToMany**`
+
+- 일대다 관계를 나타내는 매핑 정보
+- _단방향_으로 쓰이면 문제가 발생할 수 있다. (양방향 추천)
+    - 단방향으로 매핑하면 자식 엔티티가 관리하는 외래 키가 다른 테이블에 있음 => 작업한 Entity가 아닌 다른 Entity에서 쿼리문이 나가는 경우가 있어 헷갈림
+        - 양방향으로 하면 외래 키가 같은 테이블에 생김
+    - 단방향으로 매핑하면 불필요한 쿼리문이 발생(update 등)
+        - 양방향으로 하면 연관관계 정보를 통해 한번에 쿼리 수행
+- 속도를 위해 기본적으로 **FetchType** 설정이 **LAZY** 로 설정되어 있습니다.
+- 속성
+    - mappedBy : 연관관계의 주인 필드를 선택한다.
+    - fetch : 글로벌 페치 전략 설정
+    - cascade : 영속성 전이 기능을 사용한다.
+    - targetEntity : 연관된 엔티티의 타입 정보를 설정한다.
+
+```java
+// 일대다 양방향 JPA 표준 스펙이 제공하지 않음. (구현은 되나 비추)
+// 대신, 다대일 양방향 관계 추천
+@Entity(name = "parent")
+public class Parent {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @OneToMany(mappedBy="parent")
+    private List<Child> childList;
+}
+
+@Entity(name = "child")
+public class Child {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Parent parent;
+}
+```

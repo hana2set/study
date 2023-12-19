@@ -18,7 +18,16 @@ ORM 문제 해결책
 * 어플리케이션 범위 캐시(공유 캐시)
 * @Cacheable
 
-
+2차캐시 적용법
+```java
+@Entity
+@Cacheable
+public class Team {
+	@Id @GeneratedValue
+	private Long id;
+	...
+}
+```
 ```yml
 spring.jpa.properties.hibernate.cache.use_second_level_cache: true
 # 2차 캐시 활성화합니다.
@@ -30,6 +39,7 @@ spring.jpa.properties.hibernate.generate_statistics: true
 # 하이버네이트가 여러 통계정보를 출력하게 해주는데 캐시 적용 여부를 확인할 수 있습니다.
 
 spring.jpa.properties.javax.persistence.sharedCache.mode: ENABLE_SELECTIVE
+# sharedCache.mode 설정, ALL, NONE, ENABLE_SELECTIVE, DISABLE_SELECTIVE, UNSPECIFIED
 ```
 
     cache mode 종류
