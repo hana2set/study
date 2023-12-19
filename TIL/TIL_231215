@@ -1,0 +1,46 @@
+ORM 문제 해결책
+* 상속 문제 (DB는 상속이 없음)
+    * 매핑정보를 추가 (@OneToMnay)
+* 관계 문제
+    * 매핑정보에 방향정보를 추가 (@JoinColumn, @MappedBy)
+* 탐색 문제
+    * 매핑/조회 정보로 참조탐색 시점을 관리 (@FetchType, fetchJoin())
+* 밀도 문제 (객체는 객체를 타입으로 가짐으로 커질 수 있음)
+    * 크기가 큰 맴버 객체는 테이블로 분리
+* 식별성 문제 (객체 - hashCode, equals)
+    * PK를 객체 ID로 설정하고 EntityManager가 이 값으로 객체를 식별
+
+
+![Alt text](Untitled.png)
+1차캐시 
+* EntityManager
+2차캐시 
+* 어플리케이션 범위 캐시(공유 캐시)
+* @Cacheable
+
+
+```yml
+spring.jpa.properties.hibernate.cache.use_second_level_cache: true
+# 2차 캐시 활성화합니다.
+
+spring.jpa.properties.hibernate.cache.region.factory_class: XXX
+# 2차 캐시를 처리할 클래스를 지정합니다.
+
+spring.jpa.properties.hibernate.generate_statistics: true
+# 하이버네이트가 여러 통계정보를 출력하게 해주는데 캐시 적용 여부를 확인할 수 있습니다.
+
+spring.jpa.properties.javax.persistence.sharedCache.mode: ENABLE_SELECTIVE
+```
+
+    cache mode 종류
+    ALL
+    모든 엔티티를 캐시합니다.
+    NONE
+    캐시를 사용하지 않습니다.
+    ENABLE_SELECTIVE
+    Cacheable(true)로 설정된 엔티티만 캐시를 적용합니다.
+    DISABLE_SELECTIVE
+    모든 엔티티를 캐시하는데 Cacheable(false)만 캐시하지 습니다.
+    UNSPECIFIED
+    JPA 구현체가 정의한 설정을 따릅니다
+

@@ -1,0 +1,23 @@
+
+Stack<Integer> stack = new Stack<>();
+stack.push();
+stack.pop();
+stack.peak();
+stack.clear();
+
+Queue<Integer> queue = new LinkedList<>();
+queue.add();
+queue.poll();
+queue.peak();
+queue.clear();
+
+
+문자열 회전
+```java
+    for (int i = 0; i < s.length(); i++) {
+        for (int strtIdx = i; strtIdx < i + s.length(); strtIdx++) {
+            int idx = strtIdx % s.length();
+            char c = s.charAt(idx);
+        }
+    }
+```

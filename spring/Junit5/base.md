@@ -20,3 +20,33 @@
 * Timely - 즉시 작성
 
 ### TransactionalTestExecutionListener
+
+### Mock(Mocito)
+* 환경 구축이 어렵거나, 객체가 의존적이거나, 시간이 오래걸리는 경우 가짜 객체를 사용함.  
+
+용어
+* 테스트 더블
+* 더미 객체
+* 테스트 스텁
+* 페이크 객체
+* 테스트 스파이
+
+
+
+### 
+@WebMvcTest
+
+```
+        mockmvc.perform(put("/api/comments/")
+                        .content(content)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .principal(mockPrincipal)
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value(TEST_TODO_TITLE))
+                .andDo(print());
+```
+
+### storming
+ReflectionTestUtils.setField  

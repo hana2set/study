@@ -6,8 +6,11 @@ long 최대값 9,223,372,036,854,775,807 (18자리 안전)
 "".length();  
 "".indexOf();  
 "".lastIndexOf();  
-"".toCharArray();  
-"".substring(biginIndex, endIndex);  
+"".toCharArray();
+"".toUpperCase();
+"".toLowerCase();
+"".substring(biginIndex, endIndex);
+"".replaceAll("a", "b");
 "".repeat(int cnt);  
 
 "".chars() : IntStream  
@@ -15,12 +18,15 @@ long 최대값 9,223,372,036,854,775,807 (18자리 안전)
 
 String.valueOf(char[] a)  
 
+Integer.parseInt(String s, int radix) - radix진법으로 s를 int로 변환
+Integer.toString(int i, int radix) - radix진법으로 i를 변환
+
 
 // primaitve 타입 Comparator 안됨  
 Arrays.sort(arr, Comparator.reverseOrder());  
 Arrays.asList(arr<not primitive[]>);  
 
-
+Arrays.copyOfRange(arr, start, end + 1);
 
 toCharArray >>> split("") -> 성능 2배정도 차이남  
 charAt > toCharArray -> 조금상승  
@@ -28,12 +34,25 @@ charAt > toCharArray -> 조금상승
 
 PriorityQueue<Integer> priorityQueueHighest = new PriorityQueue<>(Collections.reverseOrder());  
 
+## 동적 int[]를 만드는 최선의 방법?
+ ArrayList에 더하고 배열로 변경이 최선 (2023/12/07 기준)
+* for문 (최적화)
+* list.stream().mapToInt(i -> i).toArray();
+
 
 ## 자료구조
 
 Stack<Integer> stack = new Stack<>();
 stack.push();
 stack.pop();
+stack.peak();
+stack.clear();
+
+Queue<Integer> queue = new LinkedList<>();
+queue.add();
+queue.poll();
+queue.peak();
+queue.clear();
 
 ## 대수
 
@@ -48,3 +67,19 @@ for (int i = 1; i * i <= N; i++) {
 }
 ```
 코테기준 Math.sqrt보다 빠름. double 연산 casting 시간이 더해지는 것으로 추측중
+
+
+
+
+
+
+### Sub
+#### 문자열 회전
+```java
+    for (int i = 0; i < s.length(); i++) {
+        for (int strtIdx = i; strtIdx < i + s.length(); strtIdx++) {
+            int idx = strtIdx % s.length();
+            char c = s.charAt(idx);
+        }
+    }
+```
