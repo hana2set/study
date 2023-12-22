@@ -21,3 +21,7 @@
 
 ### usages 표시
 ![image](https://github.com/hana2set/study/assets/97689567/4e4b0a5f-ae0a-4c7d-94dc-9f42cb1dc9c9)
+
+
+### 저장 시 리포맷팅
+![image](https://github.com/hana2set/study/assets/97689567/89bfcdf4-26e0-4e3d-86b4-33ca31b3885a)
