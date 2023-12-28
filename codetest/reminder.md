@@ -69,7 +69,26 @@ for (int i = 1; i * i <= N; i++) {
 코테기준 Math.sqrt보다 빠름. double 연산 casting 시간이 더해지는 것으로 추측중
 
 
+## DFS
 
+```java
+class Solution {
+    public int solution(int[] numbers, int target) {
+        int answer = 0;
+        answer = dfs(numbers, 0, 0, target);
+        return answer;
+    }
+    int dfs(int[] numbers, int n, int sum, int target) {
+        if(n == numbers.length) {
+            if(sum == target) {
+                return 1;
+            }
+            return 0;
+        }
+        return dfs(numbers, n + 1, sum + numbers[n], target) + dfs(numbers, n + 1, sum - numbers[n], target);
+    }
+}
+```
 
 
 
