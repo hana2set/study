@@ -1,0 +1,30 @@
+swagger
+https://velog.io/@banjjoknim/Swagger
+
+springfox 보다 springdoc이 최신이라 springdoc 사용
+https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+https://github.com/springdoc/springdoc-openapi
+https://springdoc.org/
+
+
+
+ OAS (OpenAPI Specification)
+
+
+git flow
+https://techblog.woowahan.com/2553/
+
+
+```
+springdoc:
+  packages-to-scan: com.colabear754.springdoc_example.controllers
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  swagger-ui:
+    path: /
+    disable-swagger-default-url: true
+    display-request-duration: true
+    operations-sorter: alpha
+```
+
+https://colabear754.tistory.com/99
