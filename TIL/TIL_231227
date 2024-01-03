@@ -1,3 +1,15 @@
+DDD update
+https://softwareengineering.stackexchange.com/questions/441745/how-to-update-many-properties-in-ddd
+https://stackoverflow.com/questions/68375794/asp-net-core-ddd-update-domain-model-using-the-request-viewmodel
+https://stackoverflow.com/questions/61757512/ddd-implementation-with-spring-data-and-jpa-hibernate-problem-with-identities
+
+
+aggregate root
+https://eocoding.tistory.com/36
+
+auditing 내ㅑ용
+https://m.blog.naver.com/PostView.nhn?isHttpsRedirect=true&blogId=gngh0101&logNo=222165130463&categoryNo=20&proxyReferer=
+
 최적화 확인
 transcational
 생성자 식별전략
@@ -199,3 +211,5 @@ https://hanamon.kr/%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%BD%94%EB%93%9C-%EC%9E%91%EC%8
 
 ----------- transcational
 
+
+-------------- 

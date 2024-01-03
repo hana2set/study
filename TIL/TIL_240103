@@ -1,0 +1,4 @@
+restdoc swagger
+
+Cannot document response fields as the response body is empty
+org.springframework.restdocs.snippet.SnippetException: Cannot document response fields as the response body is empty

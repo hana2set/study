@@ -1,18 +1,85 @@
-swagger
+swagger - spring-doc
+https://springdoc.org/
+https://github.com/springdoc/
 https://velog.io/@banjjoknim/Swagger
+https://www.baeldung.com/spring-rest-openapi-documentation
+https://javadoc.io/doc/io.swagger.core.v3/swagger-annotations/latest/index.html
 
 springfox 보다 springdoc이 최신이라 springdoc 사용
 https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
 https://github.com/springdoc/springdoc-openapi
 https://springdoc.org/
+https://github.com/swagger-api/swagger-ui
 
-
+https://oingdaddy.tistory.com/272
 
  OAS (OpenAPI Specification)
 
 
+
+
+
+
+swagger 3 annotations
+swagger 2 annotations
+desc
+
+
+@Tag
+@Api
+클래스를 Swagger 리소스로 표시
+
+
+@Parameter(hidden = true) or @Operation(hidden = true) or @Hidden
+@ApiIgnore
+API 작업에서 단일 매개 변수를 나타냄
+
+
+@Parameter
+@ApiImplicitParam
+API 작업에서 단일 매개 변수를 나타냄
+
+
+@Parameters
+@ApiImplicitParams
+API 작업에서 복수 매개 변수를 나타냄
+
+
+@Schema
+@ApiModel
+Swagger 모델에 대한 추가 정보를 제공
+
+
+@Schema(accessMode = READ_ONLY)
+@ApiModelProperty(hidden = true)
+모델 속성의 데이터를 추가하고 조작
+
+
+@Schema
+@ApiModelProperty
+Swagger 모델에 대한 추가 정보를 제공
+
+
+@Operation(summary = "foo", description = "bar")
+@ApiOperation(value = "foo", notes = "bar")
+특정 경로에 대한 작업 또는 일반적으로 HTTP 메서드를 설명
+
+
+@Parameter
+@ApiParam 
+작업 매개 변수에 대한 추가 메타 데이터를 추가
+
+
+@ApiResponse(responseCode = "404", description = "foo")
+@ApiResponse(code = 404, message = "foo")
+작업의 가능한 응답을 설명
+출처: https://oingdaddy.tistory.com/272 [SI Supply Depot:티스토리]
+
+
 git flow
 https://techblog.woowahan.com/2553/
+
+
 
 
 ```
