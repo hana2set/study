@@ -2,3 +2,10 @@ restdoc swagger
 
 Cannot document response fields as the response body is empty
 org.springframework.restdocs.snippet.SnippetException: Cannot document response fields as the response body is empty
+
+given이나 controller variable형식이 안맞으면 안되는듯
+
+
+https://tech.kakaopay.com/post/openapi-documentation/
+
+
