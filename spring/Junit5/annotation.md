@@ -2,6 +2,10 @@ ___
 * @SpringBootTest
 * @WebMvcTest
 * @DataJpaTest
+
+* @ExtendWith(SpringExtension.class)
+* @ExtendWith(MockitoExtension.class)
+    * https://www.baeldung.com/junit-5-extensions
 ___
 * @BeforeEach
 * @BeforeAll

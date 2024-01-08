@@ -38,5 +38,3 @@ public abstract class Timestamped {
     private LocalDateTime modifiedAt;
 }
 ```
-
-공통된 컬럼을 상속개념으로 사용하도록 함

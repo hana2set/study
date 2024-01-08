@@ -25,3 +25,7 @@
 
 ### 저장 시 리포맷팅
 ![image](https://github.com/hana2set/study/assets/97689567/89bfcdf4-26e0-4e3d-86b4-33ca31b3885a)
+
+
+### serialVersionUID 추가
+![image](https://github.com/hana2set/study/assets/97689567/d218b039-110e-4881-8c17-7b9cd3810f58)

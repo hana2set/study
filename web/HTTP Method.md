@@ -3,7 +3,7 @@ Specification:
 [RFC5789](https://www.rfc-editor.org/rfc/rfc5789) - patch
 
 ## GET
-주로 정보 검색용
+주로 정보 검색용. 일반적으로 "가져온다"라는 느낌이 강해서 url에 관련 정보를 명시하는 것을 추천
 * response code: 200 (OK)
 
 ## POST
