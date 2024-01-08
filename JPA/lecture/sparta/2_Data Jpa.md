@@ -12,7 +12,7 @@
 
 
 # SpringData Jpa 와 JpaRepository
-
+![spring_data_jparepository](https://github.com/hana2set/study/assets/97689567/eefa0ab5-95fd-4710-815f-ee83a6c34247)
 - Repository 는 MarkerInterface 로 특별한 기능은 없음
 - Repository ~ JpaRepository 사이는 **`@NoRepositoryBean`** 이 붙어있는 인터페이스
     - JpaRepository<Entity,ID> 붙이면 알맞은 프로그래밍 된 **`SimpleJpaReository`** 구현체 빈이 등록된다.
