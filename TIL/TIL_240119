@@ -1,0 +1,15 @@
+git checkout .
+
+
+git reset HEAD^^^ 
+git reset HEAD~4
+git rebase -i HEAD~10
+
+
+git reset --hard origin/{branchName}
+git commit --amend
+
+
+git rebase {branchName}
+git rebase --continue
+:wq

@@ -1,0 +1,33 @@
+inteillj에서 도커를 통한 debug 자동화 -목표
+![image](https://github.com/hana2set/study/assets/97689567/6b61532e-d0b0-4041-8343-1eb302dc63b8)
+
+inteillj 도커에 디버깅 부착
+https://www.jetbrains.com/help/idea/attach-to-process.html
+https://www.jetbrains.com/help/idea/attach-to-process.html#prerequisites
+
+JMeter
+
+
+vue3 에러
+WebSocket connection to 'wss://192.168.0.14:3000/ws' failed: WebSocketClient.js:13  반복됨
+-> dev 환경에서 live loading이 막혀버린것. 원인 불명
+-> devServer config host 추가
+```
+const { defineConfig } = require('@vue/cli-service')
+module.exports = defineConfig({
+  transpileDependencies: true,
+  devServer: {
+    host: 'localhost'
+  },
+  pluginOptions: {
+    vuetify: {
+			// https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vuetify-loader
+		}
+  }
+})
+```
+
+
+deep selecter
+https://github.com/vuejs/rfcs/blob/master/active-rfcs/0023-scoped-styles-changes.md
+https://medium.com/@brockreece/scoped-styles-with-v-html-c0f6d2dc5d8e

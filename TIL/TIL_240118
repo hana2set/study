@@ -1,0 +1,27 @@
+스프링 부트 3.2 파라미터 이름 인식 문제
+(compiler를 intellij IDE로 하면 파라미터 인식 문제 생김)
+(-parameters )
+
+https://www.inflearn.com/questions/1088283/pathvariable-%EB%B3%80%EC%88%98%EB%AA%85-%EA%B0%99%EC%9D%84%EB%95%8C-%EC%83%9D%EB%9E%B5%EC%8B%9C-%EC%98%A4%EB%A5%98-%EB%B9%8C%EB%93%9C-%EC%84%A4%EC%A0%95%EC%9D%84-gradle%EB%A1%9C-%ED%95%98%EB%A9%B4-%ED%95%B4%EA%B2%B0%EB%90%98%EB%8A%94-%EA%B2%83-%EA%B0%99%EC%8A%B5%EB%8B%88%EB%8B%A4
+
+
+jpqlquery에 fetch하지않고 stream하면 갯수가 다름
+
+
+https://offetuoso.github.io/blog/develop/backend/orm-jpa-basic/jpql-fetch-join/#%EB%91%98-%EC%9D%B4%EC%83%81%EC%9D%98-%EC%BB%AC%EB%A0%89%EC%85%98%EC%9D%80-%ED%8E%98%EC%B9%98-%EC%A1%B0%EC%9D%B8-%ED%95%A0-%EC%88%98-%EC%97%86%EB%8B%A4
+
+
+jpa가 blocking 방식이라서 인-메모리에 들고 있어도 어차피 변동 사항 체크가 다 가능하긴 하지만
+비동기 세상에서는 다른 스레드에 의해 데이터가 오염될 수 있어서
+
+Spring MVC - Spring Data JPA (Blocking)
+Spring WebFlux - Spring Data R2DBC (Non-Blocking)
+
+db library 중에 r2dbc
+
+
+https://github.com/querydsl/querydsl/discussions/2913
+
+#2672 - Added Fetchable#stream() which returns a Stream<T>.
+Make sure that the returned stream is always closed to free up resources, for example using try-with-resources.
+It does not suffice to rely on a terminating operation on the stream for this (i.e. forEach, collect).

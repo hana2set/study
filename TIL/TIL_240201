@@ -1,0 +1,65 @@
+querydsl
+one to many의 경우
+
+https://www.inflearn.com/questions/810210/querydsl%EC%97%90%EC%84%9C-onetomany-%EA%B4%80%EA%B3%84%EC%9D%B8%EB%8D%B0-many%EC%AA%BD-%EA%B2%80%EC%83%89%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%A0-%EB%95%8C-%EC%96%B4%EB%96%BB%EA%B2%8C-%ED%95%B4%EC%95%BC%ED%95%98%EB%82%98%EC%9A%94
+https://wedul.site/716
+https://meonggae.blogspot.com/2016/11/mysql-explain-using-temporary-using.html
+https://dotoridev.tistory.com/3
+https://github.com/querydsl/querydsl/issues/3224
+
+
+결과가 distinct됨 (혹은 전체 데이터 조회)
+
+검색결과가 많이 없는걸보니 잘 안쓰는듯
+
+1:N인경우 
+대표값을 넣어두거나
+따로 조회하시는 식으로
+설계를 변경해야 하는듯.
+페이징해야하는 경우 불가능한 것 같음 (limit 갯수가 달라짐.)
+
+https://kkambi.tistory.com/193
+
+해당글에서, 커버링 인덱스 부분에서
+성능개선을위해 쿼리를 쪼갠다고 함.
+aws 환경에서는 별 차이가 없어보임 (캐싱도 어렵다고하니)
+
+
+
+Select 성능 개선4 - Group By 최적화
+MySQL에서 쿼리가 인덱스를 타지 않았을 때, Group By를 실행하면 FileSort가 반드시 발생합니다. 그런데 정렬이 필요없는 경우에도 대량의 데이터를 정렬한다면 성능 손실이 크겠죠?
+
+이를 해결하기 위해 MySQL에선 order by null을 사용하면 Filesort가 제거되는 기능을 지원합니다.
+하지만 Querydsl에선 order by null을 지원하지 않기 때문에 exist 메소드처럼 우리가 직접 구현해야 합니다.
+
+
+
+org.hibernate.ScrollableResults.get(int) 문제 - 버전 호환성 문제인듯함 ( spring boot 3.x 랑 querydsl 버전이 안맞는것같음)
+-> 
+   @Bean
+    public JPAQueryFactory jpaQueryFactory() {
+        return new JPAQueryFactory(JPQLTemplates.DEFAULT, entityManager);
+    }
+
+    이렇게 변경
+
+
+
+
+로컬 브랜치 검색
+git branch | grep "feat" 
+
+main, develop 제외 검색
+git branch -r | grep -Ev 'main|develop'
+
+로컬 브랜치 전체 삭제
+git branch | grep "feat" | xargs git branch -D
+
+원격 브랜치 전체 삭제 (원격에 적용 안됨)
+git branch -r --merged develop | ack -v develop | sed -e 's/\// :/' | xargs -n2 git push
+
+git branch -r | grep -Eo "feat.*" | xargs -I {} git push origin :{}
+
+원격 삭제 내용 동기화
+git fetch --all --prune
+git remote prune origin

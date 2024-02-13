@@ -1,0 +1,22 @@
+stomp
+
+낙관적락
+
+RAPIDapi
+redis sorted set
+
+CQRS service -> 핫딜전용 -> 그래야 scale out 되어도 커버 가능
+
+
+
+폴링 이벤트
+
+1:n - entity graph
+
+in memory broker
+
+로드밸런싱
+
+mvc -> blocking 방식 -> 튈수있음 초반에
+
+kafka -> 기본적으로 순서보장 안해줌니다

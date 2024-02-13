@@ -1,0 +1,87 @@
+linux
+
+chmod 400 newkeypair.pem
+ssh -i newkeypair.pem
+
+window 
+
+icacls.exe newkeypair.pem /reset
+icacls.exe newkeypair.pem /grant:r %username%:(R)
+icacls.exe newkeypair.pem /inheritance:r
+
+
+![image](https://github.com/hana2set/study/assets/97689567/5f268c8c-1d4b-443f-978c-deddba829848)
+
+username, ip 확인
+
+![image](https://github.com/hana2set/study/assets/97689567/165d09d3-6762-4182-b68d-132097e23ff8)
+
+ssh -i newkeypair.pem ubuntu@3.82.230.198
+
+
+# EBS (Amazon Elastic Block Store)
+Amazon EC2 인스턴스에 연결할 수 있는 블록 수준 스토리지 볼륨
+인스턴스의 usb 메모리라고 생각할 수 있음
+
+하나의 인스턴스에 여러 EBS,
+EBS 상태를 저장하고 싶다 -> EBS snapshot
+
+# EBS snapshot
+- 데이터 백업 및 복원
+- 볼륨 확장
+- 데이터 마이그레이션
+
+# 볼륨 장착
+
+![image](https://github.com/hana2set/study/assets/97689567/54bca086-f5ad-4cc1-8e8f-82bed0b4a850)
+
+
+![image](https://github.com/hana2set/study/assets/97689567/df95c5f9-0014-4eed-84e7-bc9e01a51220)
+
+
+![image](https://github.com/hana2set/study/assets/97689567/6dba7824-fde8-4638-acc8-0e8162f9d517)
+
+network - availability zone 이 일치하는 volume만 장착 가능 -> create volume 할때 확인할 것
+
+![image](https://github.com/hana2set/study/assets/97689567/383b774c-ea42-4619-a977-9ed9f81832de)
+
+![image](https://github.com/hana2set/study/assets/97689567/04af0ab1-18bf-4990-a80d-c8ab2aa48db3)
+
+직접 붙인 EBS는 Delete on termination가 기본적으로 꺼져있음.
+설정하면 인스턴스 삭제시 같이 삭제 가능
+
+볼륨에서 우클릭 - create snapshot
+스냅샷을 만들면 
+지역이동 가능, 복제 가능, 복구 가능
+
+
+# AMI (Amazon Machine Image)
+
+EC2 인스턴스를 생성할 때 사용되며 운영 체제와 애플리케이션, 라이브러리 등이 포함 ( = 설치 CD)
+
+# AMI 만들어보기
+
+기존 인스턴스에서 테스트용 파일 생성
+![image](https://github.com/hana2set/study/assets/97689567/08064699-40ce-4e38-b427-fb7a2f5e4178)
+
+이미지 생성 (기존 Instance를 AMI으로 만들기)
+![image](https://github.com/hana2set/study/assets/97689567/7af9c68e-421e-4cd6-a3ea-82d063b73a6d)
+
+Launch instance from AMI 선택
+![image](https://github.com/hana2set/study/assets/97689567/dde6e6b4-1b4a-4c5f-8f5f-65874a7e443a)
+
+인스턴스의 파일이 그대로 옮겨진걸 확인할 수 있음. 
+![image](https://github.com/hana2set/study/assets/97689567/64e2ecc7-92ab-4092-bc3f-d79abeec66fe)
+(주의 - 인스턴스 생성하면 유저가 달라짐으로, 기존 인스턴스와 유저를 맞출 것)
+
+
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+고가용성
+서비스가 계속 이어져 갈 수 있는 보험
+
+확장성
+
+aws/elb.md

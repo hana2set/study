@@ -1,0 +1,37 @@
+toList vs collectiors.toList()
+
+https://velog.io/@cieroyou/Stream%EC%9D%84-List%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EB%8A%94-%EB%8B%A4%EC%96%91%ED%95%9C-%EB%B0%A9%EB%B2%95%EA%B3%BC-%EC%B0%A8%EC%9D%B4Collectors.toList-vs-Stream.toList
+
+@SQLDelete로 실제삭제가 아니여도 
+orphanRemoval = true 옵션있으면 삭제됨
+(CascadeType.REMOVE 도 마찬가지)
+
+DELETE시 객체가 사라지는 것으로 판단하는듯
+
+정해진  DATE 타입으로 받기
+https://cupeanimus.tistory.com/72
+
+
+
+@Configuration
+public class JacksonConfig {
+    @Bean
+    public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
+        return builder -> {
+
+            // formatter
+            DateTimeFormatter dateTimeFormatter = new DateTimeFormatterBuilder()
+                    .appendPattern("yyyy-MM-dd[ HH][:mm][:ss][.Z]")
+                    .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                    .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                    .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+                    .toFormatter();
+
+            // deserializers
+            builder.deserializers(new LocalDateTimeDeserializer(dateTimeFormatter));
+
+            // serializers
+            builder.serializers(new LocalDateTimeSerializer(dateTimeFormatter));
+        };
+    }
+}

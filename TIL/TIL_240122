@@ -1,0 +1,27 @@
+FCM SSE
+
+2조
+레이드 컨디션 이슈
+비관적 락
+
+cloud front
+
+elastic cache
+
+docker compose - yml 파일로
+
+Dockerfile 만들어서
+dockerlize 사용
+
+
+docker build . -t ~~
+
+//미지의 빠른 개요를 표시
+docker scout quickview
+
+
+expose
+
+jar {
+    enabled = false
+}

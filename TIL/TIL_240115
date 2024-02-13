@@ -1,0 +1,37 @@
+일급 컬렉션
+https://jojoldu.tistory.com/412
+
+코드리뷰 in 뱅크샐러드 
+https://blog.banksalad.com/tech/banksalad-code-review-culture/
+
+
+Projection으로 list 넣으려고했으나 실패
+transform, 실패
+
+
+cannot simultaneously fetch multiple bags: [com.example.airdns.domain.room.entity.Rooms.imagesList, com.example.airdns.domain.room.entity.Rooms.roomEquipmentsList]]
+MultipleBagFetchException 
+
+2개의 fetch join은 허용하지않음..
+
+spring:
+  jpa:
+    properties:
+      hibernate.default_batch_fetch_size: 1000
+
+disticnt?써야하나?
+    
+
+
+//        Projections.fields(
+//                RoomsResponseDto.ReadRoomsResponseDto.class,
+//                rooms.name,
+//                rooms.price,
+//                rooms.address,
+//                rooms.size,
+//                rooms.description.as("desc"),
+//                Expressions.stringTemplate("group_concat({0})", roomEquipments.equipments.id).as("equipment")
+////                        list(images.imageUrl).as("imageUrl")
+////                        rooms.roomEquipmentsList,
+////                        rooms.imagesList.
+//        )

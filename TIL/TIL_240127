@@ -1,0 +1,43 @@
+책임 연쇄 + 파사드
+https://salagoz.medium.com/chain-of-responsibility-and-facade-design-patterns-with-spring-boot-e8ee792f84c
+
+https://medium.com/hprog99/mastering-the-facade-design-pattern-in-java-a-comprehensive-guide-with-practical-examples-f3a19f58440e
+
+
+Querydsl 의 이전 버전에서는 fetchResults(), fetchCount() 메소드를 이용하여 페이징 쿼리를 작성했지만 5.0.0 버전에서 deprecated 되었다. 이유는 다음과 같다.
+
+fetchResults() : Get the projection in QueryResults form. Make sure to use fetch() instead if you do not rely on the QueryResults.getOffset() or QueryResults.getLimit(), because it will be more performant. Also, count queries cannot be properly generated for all dialects. For example: in JPA count queries can’t be generated for queries that have multiple group by expressions or a having clause. Get the projection in QueryResults form. Use fetch() instead if you do not need the total count of rows in the query result.
+
+
+projection예제
+https://devwithpug.github.io/java/querydsl-with-datajpa/
+https://github.com/querydsl/querydsl/blob/master/querydsl-collections/src/test/java/com/querydsl/collections/GroupByTest.java
+
+querydsl 페이징 최적화
+
+https://cheese10yun.github.io/page-performance/
+
+groupby시 paging 주의사항
+https://jessyt.tistory.com/129
+
+querydsl 에서 leftjoin시 갯수가 안맞음
+https://wedul.site/716
+
+
+
+                .transform(
+                        groupBy(rooms.id).list(
+                                Projections.constructor(RoomsResponseDto.ReadRoomsResponseDto.class,
+                                        rooms.id,
+                                        rooms.name,
+                                        rooms.price,
+                                        rooms.address,
+                                        rooms.size,
+                                        rooms.description,
+                                        rooms.createdAt,
+                                        GroupBy.list(Projections.constructor(ImagesResponseDto.ReadImagesResponseDto.class,
+                                                images.id,
+                                                images.imageUrl))
+                                )
+                        )
+                )

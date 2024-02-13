@@ -1,0 +1,16 @@
+Please remove unnecessary stubbings or use 'lenient' strictness. More info: javadoc for UnnecessaryStubbingException class.
+
+
+테스트코드의 엄격성은 다음 요소들을 보장해 줍니다.
+
+테스트코드에서 사용되지 않는 stub (when/thenReturn)을 줄여줍니다.
+테스트코드에서 불필요한 코드 중복을 없애주고 이를 통해 필요없는 테스트 코드 역시 줄여줍니다.
+죽은 코드를 제거하면서 생기는 불필요한 테스트를 없애도록 도와줍니다.
+이를 통해 디버깅 편의성과 생산 효율을 올려줍니다.
+
+entity to dto 위치
+https://velog.io/@jsb100800/Spring-boot-DTO-Entity-%EA%B0%84-%EB%B3%80%ED%99%98-%EC%96%B4%EB%8A%90-Layer%EC%97%90%EC%84%9C-%ED%95%98%EB%8A%94%EA%B2%8C-%EC%A2%8B%EC%9D%84%EA%B9%8C
+
+
+Name for argument of type [java.lang.Long] not specified, and parameter name information not available via reflection. Ensure that the compiler uses the '-parameters' flag.
+값 매핑 못하는중
