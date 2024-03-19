@@ -1,5 +1,5 @@
 # 개요
-인터넷 주소를 도메인 이름(예: www.google.com)으로 변환해주는 시스템  
+인터넷 주소를 도메인 이름(예: www.google.com) 으로 변환해주는 시스템  
 - naver.com -> 223.130.200.236
 
 ![image](https://github.com/hana2set/study/assets/97689567/bbd04d86-e498-45e7-8e8f-bd7718b2e53f)
