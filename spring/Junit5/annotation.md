@@ -11,7 +11,8 @@ ___
 * @BeforeAll
 * @AfterEach
 * @AfterAll
-* @Mock
+* @Mock 
+* @InjectMocks - mock 객체들 중 필요 객체 자동 주입
 * @Disabled
 * @DisplayName("display name")  
 ___

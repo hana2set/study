@@ -25,6 +25,7 @@ Integer.toString(int i, int radix) - radix진법으로 i를 변환
 // primaitve 타입 Comparator 안됨  
 Arrays.sort(arr, Comparator.reverseOrder());  
 Arrays.asList(arr<not primitive[]>);  
+Arrays.sort(arr, (o1, o2) -> o1.compareTo(o2));
 
 Arrays.copyOfRange(arr, start, end + 1);
 
@@ -51,7 +52,7 @@ stack.clear();
 Queue<Integer> queue = new LinkedList<>();
 queue.add();
 queue.poll();
-queue.peak();
+queue.peek();
 queue.clear();
 
 ## 대수

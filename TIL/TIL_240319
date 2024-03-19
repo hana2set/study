@@ -1,0 +1,22 @@
+NestJS
+https://nestjs.com/
+
+TypeORM
+https://typeorm.io/
+
+
+controller
+
+provider 의존성주입
+@Injectable() - provider 클래스임을 명시
+@Module()
+@controller
+@import
+@Export
+
+@Global
+Pipe - transform, validation
+
+
+TypeORM
+- JPA

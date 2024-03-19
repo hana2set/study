@@ -19,38 +19,6 @@
 (사실 zero-payload는 데이터 정합성 이슈 보다는 메시지 큐에 들어가는 데이터 포맷을 일치 시키기 위해서 주로 사용하는 방법인데... 
 이를 활용해서도 데이터 정합성 해결을 시도해볼만 하다는 것을 이야기 드리는 것이므로 참고만 하시면 좋겠습니다.)
  
- 
-## 5. 인스턴스 타입 명칭
-
-[[Amazon EC2 인스턴스 유형 – Amazon Web Services](https://aws.amazon.com/ko/ec2/instance-types/?nc1=h_ls)](https://aws.amazon.com/ko/ec2/instance-types/?nc1=h_ls)
-
-![image](https://github.com/hana2set/study/assets/97689567/0c2b6afa-9872-49e8-82b2-ec8641f33f38)
-
-t2.nano
-
-t - 클래스
-2 - 버전
-nano - 크기
-
-
-## 6. 보안 규칙을 위한 Security Group과 Ports
-
-### 보안규칙
-
-- 여러 인스턴스에 할당 가능
-- time out → 보안규칙 이슈 (inbound의 방화벽)
-- connection refuse → ec2 내부 이슈
-- 모든 inbound는 디폴트로 막혀있습니다.
-- 모든 outbound는 디폴트로 열려있습니다.
-
-### 포트
-
-- 22 = ssh(secure shell)로 인스턴스에 원격 접속
-- 21 = FTP 파일전송 프로토콜
-- 80 = http 웹 접속
-- 443 = https 안전한 http 접속, 현재의 스탠다드
-
-
 
 
 자료구조
@@ -72,3 +40,6 @@ api
 쿠키
 
 브라우저안에 종속하면 주의
+
+
+ TIL 내용 aws/EC2 (Elastic Compute Cloud).md 이관

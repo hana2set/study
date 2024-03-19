@@ -1,0 +1,28 @@
+S3
+
+버켓이름 글로벌 유니크
+
+
+
+### ARN
+
+- AWS에서 사용하는 고유한 식별자로 AWS의 모든 리소스에 대한 고유한 식별자 역할을 합니다.
+
+```jsx
+arn:partition:service:region:account-id:resource-id
+arn:partition:service:region:account-id:resource-type/resource-id
+arn:partition:service:region:account-id:resource-type:resource-id
+
+//예시
+arn:aws:iam::123456789012:user/johndoe
+arn:aws:s3:::my_corporate_bucket/
+arn:aws:ec2:us-east-1:123456789012:vpc/vpc-0e9801d129EXAMPLE
+```
+
+- ARN은 다음과 같은 형식으로 구성됩니다.
+    - arn: AWS 리소스 이름을 가리키는 고정 문자열
+    - aws: 리소스가 AWS에서 호스팅되는 것을 나타내는 고정 문자열
+    - service: AWS 서비스 이름을 나타내는 문자열 (예: s3, lambda, ec2 등)
+    - region: AWS 리전 이름을 나타내는 문자열 (예: us-east-1, ap-northeast-2 등)
+    - account-id: AWS 계정 ID를 나타내는 숫자
+    - resource-id: 해당 리소스의 고유 식별자 (예: S3 버킷 이름, Lambda 함수 이름 등)

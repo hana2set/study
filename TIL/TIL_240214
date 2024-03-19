@@ -1,0 +1,110 @@
+
+
+
+
+read replica
+
+일반적으로 리드가 더 많기때문에, 리드를 분산
+
+![image](https://github.com/hana2set/study/assets/97689567/432b1763-7435-4caf-9f39-69cac1635207)
+
+RDS multi AZ
+백업 (가용성을 위한 기능)
+
+
+//////////////////
+
+DNS (Domain Name System)
+인터넷 주소를 도메인 이름(예: www.google.com)으로 변환해주는 시스템
+
+DNS 계층 구조
+1. Root DNS Server
+2. TLD DNS Server
+3. SLD DNS Server
+
+DNS Hierarchy tree
+
+Route53 = TLD + SLD
+
+```
+nslookup naver.com
+// 223.130.200.107
+
+nslookup google.com
+// 142.250.76.142
+```
+
+DNS - 기본 포트 번호: 53 -> Route53
+route53 도메인 필요 - 연 13달러 - skip함
+
+
+## 3. IPv4v6, 레코드타입, TTL
+
+DNS 레코드 타입
+- A 레코드: 호스트네임과 IPv4 주소를 연결합니다.
+- AAAA 레코드: 호스트네임과 IPv6 주소를 연결합니다.
+- CNAME 레코드: 호스트네임을 다른 호스트네임과 연결합니다. 다른 호스트네임은 반드시 A 혹은 AAAA 레코드가 있어야 합니다.
+- NS 레코드: 호스트존의 네임서버를 지정합니다.
+
+호스트존은 주소록입니다. public 호스트존은 도메인 네임의 IP 주소를 가리키며, private 호스트존은 사설망 내부에서 사용됩니다. 또한, SOA 레코드는 메타 데이터를, NS 레코드는 네임서버 정보를 담고 있습니다.
+
+### CNAME vs Alias
+
+CNAME과 Alias는 DNS 레코드의 유형입니다. 두 레코드는 호스트 이름을 다른 호스트 이름에 매핑하는 데 사용됩니다. 그러나 두 레코드는 서로 다른 용도를 가지고 있습니다.
+
+CNAME 레코드는 호스트 이름을 다른 호스트 이름으로 매핑합니다. 이전에 정의된 호스트 이름의 모든 레코드를 복사하여 새 호스트 이름에 할당합니다. 이는 호스트 이름이 변경되었거나 호스트 이름이 서로 다른 IP 주소를 가리키도록 하려는 경우에 유용합니다.
+
+CNAME은 루트 도메인이 아닌경우에만 적용가능합니다.(ex app.mydomain.com O, [mydomain.com](http://mydomain.com) X)
+
+Alias 레코드는 호스트 이름을 Amazon S3 버킷, Elastic Load Balancer 또는 Amazon CloudFront 분산 된 웹 사이트와 같은 AWS 리소스에 매핑합니다. 이를 통해 AWS 리소스에 대한 DNS 레코드를 만들 수 있습니다. Alias 레코드는 Amazon Route 53에서만 지원됩니다.
+
+Alias가 가능한 서비스들
+
+- Elastic Load Balancer
+- Cloudfront
+- API Gateway
+- Elastic Beanstalk
+- S3
+- VPC Interface Endpoints
+
+Alias가 **불가능한 서비스**
+
+- **EC2**
+
+### TTL
+
+TTL은 Time to Live의 약어로, DNS 레코드가 캐싱될 수 있는 최대 시간을 나타내는 값입니다. TTL이 높을수록 DNS 레코드가 캐싱될 수 있는 시간이 더 길어지므로, 캐시 효율성은 높아집니다. 일반적으로, TTL은 몇 분에서 몇 시간까지로 설정됩니다.
+
+
+create recored에서 value에 loadbalancer 주소 넣음 -> 
+주의: ec2에서 제공하는 dns는 안됨 (다른건됨)
+
+///////////////////////////////
+
+# VPC (Virtual Private Cloud)
+
+AWS에서 제공하는 클라우드 컴퓨팅 리소스를 사용할 수 있는 가상의 사설 네트워크. 자동생성됨
+- 쉽게 말해 AWS 내부 네트워크 묶음
+- Region > VPC > AZ > Subnet
+
+![image](https://github.com/hana2set/study/assets/97689567/b4dc9d65-bf88-46d4-9dd4-206110b4b3cb)
+
+
+## Subnet, Gateway, NAT
+
+### Subnet
+VPC 내에서 IP 주소 범위를 지정하는 가상의 네트워크
+- VPC 내에서 여러 서블릿을 만들어 격리된 가상 네트워크 생성 가능
+- VPC에서 연결된 암시적 [라우팅 테이블](https://docs.aws.amazon.com/ko_kr/vpc/latest/userguide/VPC_Route_Tables.html)이 있고 이걸 통해 내부 네트워크 연결
+
+#### public subnet
+IGW와 직접 연결된 서브넷 (인터넷과 직접 연결됨)
+
+#### private subnet
+인터넷과 직접 연결되지 않는 가상의 네트워크
+
+### IGW (Internet Gateway)
+VPC와 인터넷 간 통신하는 게이트웨이
+
+### NAT (Network Address Translation) Gateway
+프라이빗 서브넷에서 아웃바운드 인터넷 트래픽을 가능하게 하는 서비스
