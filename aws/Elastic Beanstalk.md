@@ -7,8 +7,12 @@
 
 <br>
 
-- 생성하면 필요한 환경설정을 자동으로 해줌!
+<details>
+  <summary>생성하면 필요한 환경설정을 자동으로 해줌!</summary>
+  
 ![image](https://github.com/hana2set/study/assets/97689567/e66cf1dc-6cb2-45ed-b0bb-432fc498ca25)
+![image](https://github.com/hana2set/study/assets/97689567/b776bfa3-b9b9-4336-9467-b9b837a1f3f2)
+</details>
 
 ## Workflow
 ![image](https://github.com/hana2set/study/assets/97689567/81bff3f1-4956-4c15-96c4-eb48ca90caf3)
