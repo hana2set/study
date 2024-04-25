@@ -1,3 +1,13 @@
+## 값 받기
+Scanner sc = new Scanner(System.in);  
+sc.next();  
+sc.nextInt();  
+
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in));  
+StringTokenizer st = new StringTokenizer(br.readLine());  
+Integer.parseInt(st.nextToken());  
+
+
 ## 함수
 
 int 최대값 2147483647(9자리 안전)
@@ -27,13 +37,16 @@ Arrays.sort(arr, Comparator.reverseOrder());
 Arrays.asList(arr<not primitive[]>);  
 Arrays.sort(arr, (o1, o2) -> o1.compareTo(o2));
 
-Arrays.copyOfRange(arr, start, end + 1);
+Arrays.copyOfRange(arr, start, end + 1);  
+Arrays.deepToString(data);  // [[3, 2, 1], [4, 2, 3, 4]]
+
+Collections.addAll(resultList, array1);
+
 
 toCharArray >>> split("") -> 성능 2배정도 차이남  
 charAt > toCharArray -> 조금상승  
 
 
-PriorityQueue<Integer> priorityQueueHighest = new PriorityQueue<>(Collections.reverseOrder());  
 
 ## 동적 int[]를 만드는 최선의 방법?
  ArrayList에 더하고 배열로 변경이 최선 (2023/12/07 기준)
@@ -46,7 +59,7 @@ PriorityQueue<Integer> priorityQueueHighest = new PriorityQueue<>(Collections.re
 Stack<Integer> stack = new Stack<>();
 stack.push();
 stack.pop();
-stack.peak();
+stack.peek();
 stack.clear();
 
 Queue<Integer> queue = new LinkedList<>();
@@ -54,6 +67,8 @@ queue.add();
 queue.poll();
 queue.peek();
 queue.clear();
+
+PriorityQueue<Integer> priorityQueueHighest = new PriorityQueue<>(Collections.reverseOrder());  
 
 ## 대수
 
@@ -70,7 +85,7 @@ for (int i = 1; i * i <= N; i++) {
 코테기준 Math.sqrt보다 빠름. double 연산 casting 시간이 더해지는 것으로 추측중
 
 
-## DFS
+## DFS (깊이우선탐색)
 
 ```java
 class Solution {
@@ -91,6 +106,8 @@ class Solution {
 }
 ```
 
+## BFS (너비우선탐색)
+
 
 
 ### Sub
@@ -103,3 +120,6 @@ class Solution {
         }
     }
 ```
+
+
+

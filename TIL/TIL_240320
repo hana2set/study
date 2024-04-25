@@ -1,0 +1,54 @@
+docker network
+https://dadev.tistory.com/entry/%EC%8A%A4%ED%81%AC%EB%9E%A9-Windows%EC%97%90%EC%84%9C-make-%EB%AA%85%EB%A0%B9%EC%96%B4-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%9D%B4%EC%9A%A9%EB%B0%A9%EB%B2%95
+
+리눅스에서 Makefile은 소스 파일들을 쉽게 빌드할 수 있도록 돕는 make 프로그램의 설정 파일이다.
+
+window에서 실행법 모르겠음
+
+make : 'make' 용어가 cmdlet, 함수, 스크립트 파일 또는 실행할 수 있는 프로그램 이름으로 인식되지 않습니다. 이름이 정확한지 확인하고 경
+로가 포함된 경우 경로가 올바른지 검증한 다음 다시 시도하십시오.
+위치 줄:1 문자:1
++ make build env=local
++ ~~~~
+    + CategoryInfo          : ObjectNotFound: (make:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+SWC - Rust로 짜여진 컴파일러
+joi - 데이터 검증 및 스키마 유효성 검사 라이브러리
+
+Config 파일 없어보임
+https://docs.nestjs.com/techniques/configuration
+
+.env 파일 등록
+
+RUNTIME=local
+PORT=3000
+SERVICE_NAME=nestjs_backend_test
+BASE_URL=localhost
+SWAGGER_ID=testuser
+SWAGGER_PW=test
+JWT_SECRET=7ZWc6rWt7J247J20652866m0652866m07J2E66i57Ja07JW87ZWc64uk
+ACCESS_TOKEN_EXPIRY=3000
+REFRESH_TOKEN_EXPIRY=1000000
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=1234
+DB_DATABASE=backend_test
+
+typeorm 방법
+https://docs.nestjs.com/techniques/database
+
+user.orders
+user.point 없어서 추가
+
+npm run start 로 테스트
+
+https://hub.docker.com/
+docker pull postgres
+docker run -p 5432:5432 -e POSTGRES_PASSWORD="1234" postgres
+
+docker 터미널에서
+su postgres
+psql
+create database backend_test;
