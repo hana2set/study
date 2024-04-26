@@ -32,6 +32,7 @@
           <li>일반적인 선택</li>
         </ul>
       </td>
+        <td></td>
     </tr>
     <tr>
       <td>Key-value DB</td>
