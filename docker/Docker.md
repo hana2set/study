@@ -1,6 +1,5 @@
 # Docker
 애플리케이션을 신속하게 구축, 테스트 및 배포할 수 있는 소프트웨어 플랫폼.
-
 Docker는 Container 라는 가상화 공간을 생성하기 위해  
 1. Linux 커널에서 기본적으로 제공하는 프로세스 격리 및 가상화 기능을 통해
 2. VM의 장점(가상 공간)을 가지면서 경량화 되어있기 때문에  
@@ -595,6 +594,10 @@ docker-compose는 여러 개의 Container가 하나의 서비스로 동작해야
 
     
 # etc.
+
+- docker Architecture
+    ![image](https://github.com/hana2set/study/assets/97689567/657366df-94b8-4206-8f11-b8863f44fa51)
+
 - <details> 
     <summary> docker exit code </summary>
 

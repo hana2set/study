@@ -20,7 +20,18 @@
 3. 문서화
 
 
-https://medium.com/hprog99/mastering-the-facade-design-pattern-in-java-a-comprehensive-guide-with-practical-examples-f3a19f58440e
+# 개인 경험 사례
+- AirDNS
+    - 도메인별 패키지 분리를 위해 각 레포지토리는 하나의 서비스에서만 참조하도록 설계함
+    - 주요 도메인인 Room과 Reservation이 서로 순환참조 
+        - 방에 대한 예약 목록이 조회가 가능해야함
+        - 예약시 방 정보 조회가 가능해야함.
+    -  **파사드 패턴**을 Rooms와 Reservations에 도입함으로 순환참조 문제 해결
+    - 다음 링크 참조: [Facade Pattern - Spring Framework Guru](https://springframework.guru/gang-of-four-design-patterns/facade-pattern/)
+    ![image](https://github.com/hana2set/study/assets/97689567/c83468d7-f1de-469a-9fc4-8b692c1e8d38)
+    ![image](https://github.com/hana2set/study/assets/97689567/bda0baee-5f58-4d15-81f8-268332670f40)
+    ![image](https://github.com/hana2set/study/assets/97689567/450663e7-1f5b-42a3-8bc9-ff1352dce534)
 
-스프링에서 적용: 
-https://springframework.guru/gang-of-four-design-patterns/facade-pattern/
+
+> 출처:  
+https://medium.com/hprog99/mastering-the-facade-design-pattern-in-java-a-comprehensive-guide-with-practical-examples-f3a19f58440e
