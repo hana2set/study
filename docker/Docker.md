@@ -125,7 +125,7 @@ Windows 는 WSL 설치해야함.
 <br>
 
 * docker pull
-    ```yaml
+    ```bash
     # 명령어
     docker pull {도커 허브 내 이미지 경로:태그명}
 
@@ -189,8 +189,29 @@ Windows 는 WSL 설치해야함.
 | container run | 도커 이미지를 내려받고, 컨테이너를 생성하여 실행함.<br>(pull → create → start) 3개의 명령어를 순차적으로 실행함. | run | —name, -e, -p, -v |
 | container rm | 정지 상태의 컨테이너 삭제 | rm | -f, -v |
 | container exec | 실행 중인 컨테이너의 특정 프로그램 실행 | exec | -i, -t |
-| container ls | 컨테이너 목록 출력 | ls |  |
+| container ls | 컨테이너 목록 출력 | ls (ps) | -a, --no-trunc  |
 | container cp | 컨테이너와 호스트 간 파일 복사 | cp |  |
+
+- 컨테이너 생성 및 실행
+```bash
+# redis 이미지로 
+docker run --name redis-test redis
+docker exec -it redis-test /bin/bash
+
+# ubuntu 이미지로
+docker run -it --name first-ubuntu ubuntu /bin/bash
+#docker run -i -t --name [컨테이너명] ubuntu:[version] [실행할 기본 쉘]
+
+# (-i interactive, 터미널로 연결, -t pseudo-terminal, 입력이 터미널 디바이스를 통해 들어온다는 것을 알림)
+```
+![image](https://github.com/hana2set/study/assets/97689567/1d645aa4-b90f-4299-ba09-6198a3dc8546)
+```bash
+```
+- 전체 컨테이너를 이미지 이름과 함께 보기
+```bash
+docker ls -a --no-trunc
+```
+![image](https://github.com/hana2set/study/assets/97689567/421f999a-ab8f-4046-a12c-879cc0292d88)
 
 
 # Dockerfile
