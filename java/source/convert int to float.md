@@ -1,3 +1,5 @@
+<!-- loss of precision in convert int to float -->
+
 큰 숫자를 변환할 경우 데이터 손실 발생
 
 

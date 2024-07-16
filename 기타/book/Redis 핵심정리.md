@@ -1,7 +1,7 @@
 <!-- 맥스웰 데이브슨 다 실바, 휴고 로페스 타바레스 지음 -->
 
 - 예제 코드 https://github.com/redis-essentials/book
-- 
+
 <br>
 
 - 레디스는 고성능 키-값 데이터 저장소인 NoSQL
@@ -21,7 +21,7 @@ vi hello.js
 node hello.js
 ```
 - redis-cli
-## 데이터 타입
+# 데이터 타입
 ### 문자열
 - 텍스트, 정수, 부동소수점, 바이너리 데이터 등 모든 데이터 저장 가능.
 - 512MB
@@ -463,16 +463,245 @@ CLIENT KILL ID TYPE slave
 - 레디스는 메모리에 저장
 - 메모리는 휘발성 저장소
 - 이를위해, Redis Database와 Append-only File을 제공함 (RDB, AOF)
+- [레디스 저장 방식](http://oldblog.antirez.com/post/redis-persistence-demystified.html)
 
 ### RDB
 - 파일 저장 LZF 압축 파일
-- SAVE 커맨드는 즉시 RDB를 생성하지만, 레디스를 블록함으로 `BGSAVE`를 사용할 것.
+- SAVE 커맨드는 즉시 RDB를 생성하지만, 레디스를 블록함으로 **`BGSAVE`를 사용할 것.**
   - `BGSAVE`는 자식 프로세스를 사용함.
 - 메모리에 올려서 작업하기 때문에 메모리가 충분히 확보되어 있어야함
 - 스냅샷 생성
 ```sh
-# 적어도 10000개의 쓰기작업이 실행되면, 60초마다 디스크에 .rdb 파일을 저장한다.
+# 적어도 10000개의 쓰기작업(change)이 실행되면, 60초마다 디스크에 .rdb 파일을 저장한다.
 save 60 10000
 ```
-
+- 설정에서 RDB 관련 지시자
+  - `stop-writes-on-bgsave-error`: **"yes"**/"no", 저장 실패시 쓰기작업 정지 여부
+  - `rdbcompression`: **"yes"**/"no", .rdb 파일에 대한 LZF 압축 여부
+  - `rdbchecksum`: **"yes"**/"no", 체크섬(중복검사) 여부. rdb 파일 로딩 전 체크섬을 수행한 뒤 일치하지 않으면 실행하지 않음
+  - `dbfilename`: 기본값 **dump.rdb**
+  - `save`: 스냅샷 주기 설정. save 60 10000
+  - `dir`: AOF, RDB 파일 경로 설정
+  
 ### AOF
+- AOF 파일은 **사람이 읽을 수 있는 로그를 추가만 할 수 있는 로그파일**
+- AOF 활성화 시, 데이터 집합 변경하는 커맨드를 받을때마다 AOF 파일에 해당 커맨드를 추가
+- 재시작 시 나열된 커맨드를 순서대로 실행하여 복구 (RDB 스냅샷의 대안)
+- 1.1 버전부터 완전한 내구성 있는 전략으로 소개
+- redis-check-aof 툴 (손상에 대응하는 툴)
+  - 성능비용, 추가공간 필요
+- 설정에서 AOF 관련 지시자
+  - `appendonly`: yes/**no**, AOF 사용 여부
+  - `appendfilename`: 기본값 빈 문자열
+  - `appendfsyne`: no/always/**everysec**, `fsync`(레디스 flush 호출 함수)에 대한 정책
+  - `no-appendfsync-on-rewrite`: yes/**no**, fsync 도중엔 레디스가 블록됨으로 **레디스 지연 문제가 발생 시 해당 옵션 yes 추천**
+  - `auto-aof-rewrite-percentage`: 0-**100**, 파일 크기가 해당 퍼센트까지 도달하면 내부적으로 *BGREWRITEAOF* 커맨드 실행됨
+  - `auto-aof-rewrite-min-size`: **67,108,864byte**, AOF 파일 최소 크기. *auto-aof-rewrite-percentage* 값 초과해도 해당 옵션값에 도달할 때 까지 AOF 저장이 안됨.
+  - `aof-load-truncated`: yes/no, 절단된 AOF 파일에 대해 로드 여부. 
+    - 절단 파일은 레디스 크래시 발생 시 생길 수 있음
+    - yes: 파일 로드 후 에러 메세지 출력
+    - no: 에레 출력 후  레디스 종료
+  - `dir`: 경로
+  
+### RDB vs. AOF
+- 복구속도: **RDB** > AOF
+- 우선순위: RDB < **AOF** (AOF는 내구성 보장)
+- 선택 가이드
+  - 저장이 필요 없음 -> RDB·AOF 둘 다 비활성
+  - 데이터 손실이 허용 -> RDB
+  - 내구성 있는 저장 필요시 -> RDB·AOF 둘 다 사용
+
+## 복제
+- 레디스 인스턴스(master)가 쓰기 작업을 진행하는 동안, 다른 레디스 인스턴스(slave)가 마스터의 완벽한 복사본이 되는 것
+```sh
+# 1개 master, 2개 slave 만들기
+> redis-server -port 5555
+> redis-server -port 6666 --slaveof 127.0.0.1 5555
+> redis-server -port 7777 --slaveof 127.0.0.1 5555
+
+# 확인
+> redis-cli -p 5555 SET testkey testvalue
+> redis-cli -p 6666 GET testkey
+"testvalue"
+> redis-cli -p 7777 GET testkey
+"testvalue"
+```
+- 마스터에 크래시가 발생했을 때, `SLAVEOF NO ONE` 커맨드를 통해, 자신(슬레이브)을 마스터로 승격하여 페일 오버를 발생시킬 수 있음.
+> 페일 오버(failover)
+> 예비 시스템으로 자동전환되는 기능. 여기서는 **슬레이브가 마스터로 승격됨**을 의미
+```sh
+# 크래시 발생
+> redis-cli -p 5555 DEBUG SEGFAULT
+> redis-cli -p 6666 SLAVEOF NO ONE
+> redis-cli -p 7777 127.0.0.1 6666
+
+# 작동 확인
+> redis-cli -p 6666 SET testkey testvalue
+> redis-cli -p 7777 GET testkey
+"testvalue"
+
+## 주의! 모든 클라이언트들이 127.0.0.1:6666로 변경되었는지 확인할 것!
+```
+- 관련 설정 지시자
+  - `min-slaves-to-write`: **0**, 마스터에 연결된 복제본(slave) 최소 갯수
+  - `min-slaves-max-lag`: **10(s)**, 최대 지연 시간
+
+## 파티셔닝
+- 데이터를 나누고 여러 장비에 분산시키는 행위
+- 최초에는 분산을 염두하지 않았으나 레디스가 커지면서 생김
+- 수평 파티셔닝(샤딩)을 가장 많이 씀
+
+### 범위 파티셔닝
+- 키 범위를 기반으로 분산
+- 고르지 못한 분포도
+- 인스턴스 갯수 변경을 쉽게 수용하지 못함
+
+### 해시 파티셔닝
+- 키를 해시함수에 넣고 나온 값을 인스턴스 갯수로 나눈 나머지를 인덱스로 사용
+- 해시 파티셔닝의 효율 == 해시 함수의 적합성
+- 일반적으로 `MD5`, `SHA1` 사용
+```js
+var index = hashFunction(redisKey) % redisHosts.length;
+var host = redisHosts(index);
+```
+- 충돌을 줄이기 위해 인스턴스 갯수를 소수로 쓰는 것을 권장
+- 인스턴스 갯수 변경에 치명적임.
+  > 필자는 데이터 목록 서버 두 대를 추가했을 때 레디스 데이터 집합의 75%가 무효화 됐다고 함.
+
+### 미리 샤딩하기
+- 미리 샤딩해 레디스 장비의 갯수는 고정함
+- 확장이 필요하면 수직적인 확장
+- 클러스터의 개수가 고정되어 있기 때문에, 탄력성이 없음(장애에 대처가 힘듬, 서버 자체를 교체해야함)
+- 관리하고 모니터링해야 할 인스턴스가 많음. (적당한 툴 없음)
+- **대안: 일관적 해싱**
+
+### 일관적 해싱(consistent hashing)
+- 해시를 균등하게 분배하기 위해 고안된 알고리즘
+- 노드 추가, 제거에 대한 키 이동을 최소화하여 시스템에 미치는 영향을 줄임
+- hash ring을 통해 해시를 분배하는 방식
+  ![image](https://github.com/hana2set/study/assets/97689567/7b2f463f-d14a-4a6b-a21c-e3725ebf449c)
+  - 해시 링을 만들고, 해시를 균등하게 펼침 (예를들어, 해시값을 2^32로 나눈 나머지를 배치)
+  - 노드마다 범위를 정하고 포함된 해시를 노드에 배치함.
+
+### 태깅
+- 키를 접두사, 접미사를 붙임.
+- SDIFF, SINTER 같은 커맨드 사용하기 위해서는 모든 키가 동일 인스턴스에 있어야함.
+- 이를 보장하기 위한 방법 중 하나 = 태그
+ 
+### 데이터 저장소 vs. 캐시
+- 캐시로 쓸 때는, 일관적 해싱 사용
+- 데이터 저장소로 쓸 때는, 키를 동일 인스턴스에 매핑해야 하기 때문에 데이터를 노드에 복제하고 적절한 분산 시스템을 생각해야함 (레디스 클러스터나 질의에 적당한 인스턴스를 찾아주는 솔루션)
+
+### 레디스 파티셔닝의 구현
+- **클라이언트, 프록시, 질의 라우터**와 같이 여러 계층으로 구현 가능
+
+### 트웸프록시로 자동 샤딩하기
+- 프록시 계층에서 추천하는 툴
+- 로드밸런서로 여러 트웸프록스로 분산하는 걸 추천
+
+# 레디스 클러스터와 레디스 센티널(집단지성)
+- 마스터/슬래이브 위상은 다음과 같은 시나리오에서 잘 작동
+  - 마스터가 모든 데이터를 저장하기에 충분한 메모리를 가짐
+  - 전체 읽기 용량이 하드웨어 성능보다 클 때 슬레이브 추가로 해결 가능(네트워크 대역폭 등)
+  - 마스터 서버에 점검이 필요할 때 애플리케이션을 중단할 수 있음
+  - 슬레이브에 마스터와 동일한 데이터가 있음
+  > 마스터/슬래이브 위상
+  > 마스터에 모든 쓰기 작업을 받고 그 변경을 나머지 슬레이브에 복제하는 방식
+- 이러한 문제로, **레디스 센티널**이라는 프로젝트 실행됨
+
+### CAP 정리
+- CAP 정리는 다음 3가지를 모두 만족시키는 분산 시스템이 없다는 것을 증명
+  - 일관성(consistency): 읽기 작업은 가장 최근에 쓴 것을 리턴할 수 있도록 보장한다.
+  - 가용성(availability): 어떠한 작업이 성공 또는 실패하더라도 해당 작업이 응답을 받을 수 있도록 보장한다.
+  - 분할 내성(partition toterance): 시스템은 네트워크 파티션이 일어나더라도 작업을 멈추지 않는다.
+- 레디스 센티널과 레디스 클러스터는 일관성을 제공할 수 없음. (쓰기 작업의 분할 떄문)
+
+## 레디스 센티널
+- 레디스 마스터가 작동하지 않을 경우 슬레이브 중 하나를 마스터로 자동 승격할 수 있도록 설계된 분산 시스템
+- 일반적인 아키텍처 - 레디스 서버마다 레디스 센티널을 설치
+- 서버와 분리된 프로세스로, 레디스 서버와 다른 포트를 사용
+![image](https://github.com/user-attachments/assets/2118bbec-37f8-4b97-8c9b-d155c2d9e79d)
+[이미지 출처](https://github.com/selcukusta/redis-sentinel-with-haproxy?tab=readme-ov-file)
+- 사용하려면 센티널을 지원하는 클라이언트를 따로 설치해야함
+- 센티널 간 통신 : `__sentinel__:hello` (Pub/Sub 채널)
+- `sentinel.conf`
+  ```sh
+  # 이름 mymaster, IP 주소 127.0.0.1, 포트 6379, 쿼럼 2인 레디스 마스터 모니터링
+  sentinel monitor mymaster 127.0.0.1 6379 2 
+
+  # 센티널이 30000 밀리초 동안 마스터에 도달하지 못하면 다른 센티널에 다운됐음을 알림
+  sentinel down-after-milliseconds mymaster 30000
+
+  # 페일오버된 마스터 노드는 180000 밀리초 안에 다시 마스터가 될 수 없다
+  sentinel failover-timeout mymaster 180000
+
+  # 마스터와 연결하기위해 동시에 재설정될 수 있는 슬레이브 갯수
+  sentinel parallel-syncs mymaster 1
+  ```
+  > 쿼럼
+  > 새로운 마스터를 선출하기 전 현재의 마스터가 다운 상태임을 동의하는 센티널의 최소 갯수
+  - parallel-syncs 옵션에서 슬레이브를 재설정하는 동안 슬레이브는 사용 불가 상태가 됨으로 값을 최소화하는게 좋다.
+
+### 네트워크 파티션(스플릿-브레인)
+- 레디스 센티널은 네트워크 파티션이 발생하는 시나리오에서 일관성이 부족
+- 즉, 높은 가용성과 자동 페일오버 문제를 해결하지만 다중 레디스 인스턴스 간의 **데이터 분산 문제는 해결하지 못함** -> 레디스 클러스터로 해결
+
+## 레디스 클러스터
+- 하나의 프로세스만 사용, 포트 2개 사용 (클라이언트 간 통신, 노드간 통신)
+
+### 해시 슬롯
+- 파티셔닝 메소드를 지칭함
+- 16,384 슬롯
+```sh
+HASH_SLOT = CRC16(key) mod 16384
+```
+- 고려 사항
+  - 마스터는 슬롯을 할당받지 못하면 데이터를 저장할 수 없다.
+  - 마스터는 최소 하나의 슬롯을 가져야 함. (없으면 키 전달 불가)
+  - 모든 마스터에 할당할 수 있는 전체 슬롯의 개수는 16,384개
+  - 마스터에 대한 슬롯의 자동 재분포는 없다. (각 마스터에 대해 수동 할당)
+
+### 해시 태그
+- 클러스터에서 다중키를 사용할 수 있는 유일한 방법
+```sh
+# {user123}이라는 해시태그를 기반으로, 동일한 해시 슬롯에 저장됨
+SADD {user123}:friends:usa "John" "Bob"
+SADD {user123}:friends:brazil "Max" "Hugo"
+SUNION {user123}:all_friends {user123}:friends:usa {user123}:friends:brazil
+```
+
+### 기본 클러스터의 생성
+- 레디스 다운로드 시 utils/create-cluster 디렉토리에 `create-cluster` 쉘 스크립트가 있음
+- 간단하게 관리하기 위해 `redis-trib`이라는 유틸리티 배포하고 있음
+- 설정 예시
+  ```sh
+  cluster-enabled yes #필수, 없으면 레디스는 싱글 인스턴스로 실행됨
+  cluster-config-file cluster.conf
+  cluster-node-timeout 2000
+  cluster-slave-vaildity-factor 10
+  cluster-migration-barrier 1
+  cluster-require-full-coverage yes
+  ```
+
+### 클러스터 관리
+#### 커맨드를 통한 관리 (이해 문제로 생략)
+- 클러스터 정보 확인
+```sh
+$ redis-cli -c -p 5000
+127.0.0.1:5000> CLUSTER INFO
+cluster_state:fail
+...
+
+```
+- 클러스터 생성
+```sh
+$ redis-cli -c -p 5000 CLUSTERADDSLOTS (0...5460)
+$ redis-cli -c -p 5000 CLUSTERADDSLOTS (5461...10922)
+$ redis-cli -c -p 5000 CLUSTERADDSLOTS (10922...16383)
+```
+- `CLUSTER SET-CONFIG-EPOCH`
+- `CLUSTER MEET 127.0.0.1 5001`
+
+#### redis-trib 툴 사용
+- 커맨드를 사용하는 것보다 훨씬 간단하게 관리 가능
+- 확인, 수정, 재샤딩, 노드 삭제, 타임아웃 설정 등 가능 

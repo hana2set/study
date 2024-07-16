@@ -21,7 +21,7 @@ long 최대값 9,223,372,036,854,775,807 (18자리 안전)
 "".toLowerCase();
 "".substring(biginIndex, endIndex);
 "".replaceAll("a", "b");
-"".repeat(int cnt);  
+"".repeat(int cnt);
 
 "".chars() : IntStream  
 "".chars().map().toElse(null);  
@@ -32,13 +32,19 @@ Integer.parseInt(String s, int radix) - radix진법으로 s를 int로 변환
 Integer.toString(int i, int radix) - radix진법으로 i를 변환
 
 
+StringBuilder sb = new StringBuilder();
+sb.append("*");
+sb.toString();
+
 // primaitve 타입 Comparator 안됨  
 Arrays.sort(arr, Comparator.reverseOrder());  
-Arrays.asList(arr<not primitive[]>);  
 Arrays.sort(arr, (o1, o2) -> o1.compareTo(o2));
+
+Arrays.asList(arr<not primitive[]>);  
 
 Arrays.copyOfRange(arr, start, end + 1);  
 Arrays.deepToString(data);  // [[3, 2, 1], [4, 2, 3, 4]]
+Arrays.fill(arr, -1);
 
 Collections.addAll(resultList, array1);
 
@@ -46,6 +52,9 @@ Collections.addAll(resultList, array1);
 toCharArray >>> split("") -> 성능 2배정도 차이남  
 charAt > toCharArray -> 조금상승  
 
+
+## 빈 Map 한번에 추가
+map.computeIfAbsent(value, k -> new ArrayList<>());
 
 
 ## 동적 int[]를 만드는 최선의 방법?
@@ -69,6 +78,9 @@ queue.peek();
 queue.clear();
 
 PriorityQueue<Integer> priorityQueueHighest = new PriorityQueue<>(Collections.reverseOrder());  
+
+TreeMap<Integer, String> treeMap = new TreeMap<>(Collections.reverseOrder()); // 입력된 정렬방식에 대해 Key값 자동정렬 
+
 
 ## 대수
 
