@@ -9,7 +9,6 @@ https://www.oracle.com/java/technologies/javase/codeconventions-indentation.html
 
 ```java
 someMethod(longExpression1, longExpression2, longExpression3,
-
         longExpression4, longExpression5);
  
 var = someMethod1(longExpression1,
@@ -34,6 +33,7 @@ private static synchronized horkingLongMethodName(int anArg,
         Object andStillAnother) {
 ...
 }
+```
 ```java
 alpha = (aLongBooleanExpression) ? beta : gamma;  alpha = (aLongBooleanExpression) ? beta
 : gamma;
