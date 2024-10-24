@@ -29,3 +29,8 @@ Amazone에서 제공하는 CDN (Content Delivery Network)
 - 캐싱이 되어있는 cdn을 초기화
 - 무효화하려는 객체의 경로 입력 (* 가능)
 ![image](https://github.com/hana2set/study/assets/97689567/301aebc6-46c4-4f2d-a2a4-4e58251da6a2)
+
+
+## 기타
+- S3 bucket과 다르게 바로 생성되지 않는 이유:
+  - 버킷을 전세계에 전파하는 시간이 필요. 10분정도, 그래서 리전에 따른 차이가 없음
