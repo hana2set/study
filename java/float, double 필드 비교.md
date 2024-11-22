@@ -1,0 +1,3 @@
+float, double 필드 비교 -> Double.compare(double, double)... 
+- Equals 사용시 오토박싱 -> 성능상 좋지 않음
+- Float.NaN, -0.0f, 특수한 부동소수 값 등을 다뤄야함 (JLS 15.21.1이나 Float.equals API 문서 참조)
