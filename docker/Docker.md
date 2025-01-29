@@ -293,9 +293,15 @@ docker-compose는 여러 개의 Container가 하나의 서비스로 동작해야
 
 
 - [compose 파일 사양](https://docs.docker.com/compose/compose-file/)
-    - `version`: docker engine과의 호환 버전  
-        - [compose-versioning](https://docs.docker.com/compose/compose-file/compose-versioning/)  
-        ![image](https://github.com/hana2set/study/assets/97689567/ba726e4c-eb77-4b05-ac3c-33cac82d9176)
+    - ~~`version`: docker engine과의 호환 버전~~ (더이상 사용되지 않음. 명시용)
+      - <details>
+           <summary> 버전 정보 </summary>
+           
+           [compose-versioning](https://docs.docker.com/compose/compose-file/compose-versioning/)
+           
+           ![image](https://github.com/hana2set/study/assets/97689567/ba726e4c-eb77-4b05-ac3c-33cac82d9176)
+        <details>
+        
     - `services`: 서비스 정의
         ``` yaml
         services:
