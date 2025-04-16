@@ -1649,6 +1649,6 @@ public class Period implements Serializable {
 
 ---
 
-[Gamma95] GoF의 디자인 패턴
-[Goetz08] 자바 병렬 프로그래밍, 에이콘출판사, 2008
-[Herlihy12] The Art of Multiprocessor Programming, Herlihy, 2012
+[Gamma95] GoF의 디자인 패턴   
+[Goetz08] 자바 병렬 프로그래밍, 에이콘출판사, 2008   
+[Herlihy12] The Art of Multiprocessor Programming, Herlihy, 2012  
