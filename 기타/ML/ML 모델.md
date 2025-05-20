@@ -63,7 +63,7 @@
 
 
 # 로지스틱 회귀
-- 주어진 결과의 확률을 예측하도록 고안된 회귀 모델 (날씨, 스팸 여부 등)
+- 주어진 결과의 **확률**을 예측하도록 고안된 회귀 모델 (날씨 확률률, 스팸 확률 등)
 - 매우 효율적인 확률 계산 메커니즘
 
 ## 확률 계산
@@ -117,11 +117,132 @@ $$
   - 조기 중단
 
 
+# 분류
+- 확률이 아닌, 카테고리 출력이 목표인 경우 사용
+- 임계값
+
+## 측정 항목
+### 기본 개념: 혼동 행렬(Confusion Matrix)
+
+| 실제 \ 예측 | Positive (예측값 = 1) | Negative (예측값 = 0) |
+|-------------|-----------------------|-----------------------|
+| Positive (실제값 = 1) | True Positive (TP)       | False Negative (FN)      |
+| Negative (실제값 = 0) | False Positive (FP)      | True Negative (TN)       |
+
+### 1. 정확성(Accuracy)
+- 전체 데이터 중 모델이 정확하게 맞춘 비율  
+- 데이터 불균형 때 최적화 필요
+
+$$
+\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+$$
+
+### 2. 정밀도 (Precision)
+- 모델이 Positive라고 예측한 것 중 실제로 Positive인 비율
+
+$$
+\text{Precision} = \frac{TP}{TP + FP}
+$$
+
+
+### 3. 재현율, 참양성률 (Recall, Sensitivity, True Positive Rate, TPR)
+
+- 실제 Positive 중 모델이 Positive로 정확히 예측한 비율  
+
+$$
+\text{Recall} = \frac{TP}{TP + FN}
+$$
+
+### 4. 거짓 양성률 (False Positive Rate, FPR)
+- Positive으로 잘못 분류된 Negative의 비율
+- 0일 수록 좋
+- **거짓 경보 가능성**
+
+$$
+\text{FPR} = \frac{FP}{FP + TN}
+$$
+
+
+
+### 번외. 5. F1 Score
+- 정밀도와 재현율의 조화평균 (균형 잡힌 평가 지표)  
+
+$$
+F1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+$$
+
+
+
+## 측정항목 선택 및 절충점
+| 측정항목       | 정의 및 특징                                        | 장점                                         | 단점                                           | 주요 절충점 및 사용 상황                              |
+|----------------|--------------------------------------------------|--------------------------------------------|----------------------------------------------|----------------------------------------------------|
+| **정확도 (Accuracy)**   | 전체 데이터 중 맞게 예측한 비율                         | 직관적이고 전반적인 성능 평가에 용이                 | 클래스 불균형 시 잘못된 판단 가능                     | 클래스가 균형 잡힌 데이터에서 사용 권장                |
+| **정밀도 (Precision)**  | Positive 예측 중 실제 Positive 비율                     | False Positive(오탐) 줄이는데 중요                    | False Negative(누락) 증가 가능                        | 오탐 최소화가 중요한 경우(예: 스팸 필터링, 사기 탐지)     |
+| **재현율 (Recall)**     | 실제 Positive 중 올바르게 예측한 비율                     | False Negative(누락) 줄이는데 중요                    | False Positive 증가 가능                              | 누락 최소화가 중요한 경우(예: 의료 진단, 결함 탐지)       |
+| **거짓 양성률 (FPR)**   | 실제 Negative 중 잘못 Positive로 예측한 비율               | 오탐률 구체적으로 파악 가능                           | 한 측면만 평가하므로 단독 사용은 한계                    | FPR을 낮추면서 재현율과 균형 맞추는 상황에서 중요          |
+
+
+## ROC-AUC
+### ROC(수신자 조작 특성 곡선)
+- 다양한 임계값(threshold)에 대해 **재현율(TPR)** 과 **거짓 양성률(FPR)** 의 관계를 시각화한 곡선
+- 모든 임곗값의 모델 성능을 시각적으로 나타낸 것
+- 특징
+  - 좌상단(0,1)에 가까울수록 좋은 분류기
+  - 무작위 추측(Random guess)은 대각선 (y = x) 형태로 나타남
+  - 여러 분류기의 성능을 동일 기준으로 비교할 수 있음
+- 선택사항<details><summary> **정밀도-재현율 곡선**  </summary>
+
+   데이터 세트의 균형이 맞지 않는 경우 정밀도-재현율은 더 나은 비교 결과를 제공할 수 있음
+  ![image](https://github.com/user-attachments/assets/83abd3b1-0a37-4bb1-b5fd-cd3e34f3cbbf)
+
+</details> 
+
+
+### AUC(곡선 아래 면적)
+- ROC 아래 면적
+- 분류기의 전체적인 판별 능력을 수치화한 값
+- 수치별 의미
+  - AUC = 1.0: 완벽한 분류기
+  - AUC = 0.5: 랜덤 추측 수준 (무작위 예측과 동일)
+  - AUC < 0.5: 성능이 랜덤보다 못함 (예측이 반대로 되어있을 수 있음)
+- 대각선 ROC와 AUC 그림
+  ![image](https://github.com/user-attachments/assets/ab5df174-6f24-4309-99da-7282d40c2f97)  
+
+
+### 임계값 선택
+
+![image](https://github.com/user-attachments/assets/ac83cb57-4429-4a4f-913f-49284e78d40b)
+
+- A: 오탐 비용이 큰 경우, 낮은 FPR을 제공하는 임계값 사용
+- B: 오탐과 거짓 음성 비용이 비슷한 경우. 
+- C: 거짓 음성(양성 누락) 비용이 큰 경우, 높은 TPR 사용
+
+
+## 예측 편향
+- 모델이나 훈련 데이터의 문제를 조기에 해결할 수 있는 빠른 검사
+- 모델 예측의 평균과 데이터 내 실제 레이블의 평균 간의 차이
+- 발생한다면(차이가 크다면), 학습 데이터셋, 모델이 적용된 새 데이터셋, 모델 중 문제가 있는 것. 
+- 발생 원인
+  - 훈련 세트에 대한 편향된 샘플링을 포함한 데이터의 편향 또는 노이즈
+  - 너무 강력한 정규화 (모델이 단순화되어 필요한 복잡성을 잃음)
+  - 모델 학습 파이프라인의 버그
+  - 모델에 제공된 데이터셋이 충분하지 않음
+
+
+## 다중 클래스 분류
+- 이진 분류의 확장. 특정 클래스에 대해 이진 분류기를 조합해 만듬
+- 
+
+
+
+
+
 
 
 
 ----
 
-출처:  
+참고:  
 [Crash Course > 선형 회귀](https://developers.google.com/machine-learning/crash-course/linear-regression?hl=ko)  
-[Python 예제 - Keras 라이브러리](https://developers.google.com/machine-learning/crash-course/linear-regression/programming-exercise?hl=ko)
+[Python 예제 - 선형 회귀 - Keras 라이브러리](https://developers.google.com/machine-learning/crash-course/linear-regression/programming-exercise?hl=ko)
+[Python 예제 - classification](https://developers.google.com/machine-learning/crash-course/classification/programming-exercise)
