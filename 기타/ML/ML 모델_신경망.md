@@ -124,4 +124,5 @@ $$
 
 
 출처:
+[ML Concepts > Crash Course > Neural networks](https://developers.google.com/machine-learning/crash-course/neural-networks)  
 [Neural Networks, Manifolds, and Topology](https://colah.github.io/posts/2014-03-NN-Manifolds-Topology/)
