@@ -10,6 +10,7 @@ itemsMenuMap.get(ItemMenu.ETC).add(item);
 
 개선
 ```java
-itemsMenuMap.computeIfAbsent(ItemMenu.ETC, k -> new ArrayList<>());
-itemsMenuMap.get(ItemMenu.ETC).add(item);
+itemsMenuMap
+    .computeIfAbsent(ItemMenu.ETC, k -> new ArrayList<>())
+    .add(item);
 ```
