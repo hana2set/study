@@ -9,7 +9,7 @@
 | None | DTO,Entity,Util... | POJO, 도메인 테스트 | None | None |
 
 
-### FIRST원칙
+### FIRST 원칙
 
 * Fast - 빨리
 * Independent - 단위 기능

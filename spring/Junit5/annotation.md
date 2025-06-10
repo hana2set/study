@@ -21,9 +21,3 @@ ___
 * @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 * @Order(1)
 
-
----
-
-junit4 | junit5
-@Before | @BeforeAll
-@After | @AfterEach
