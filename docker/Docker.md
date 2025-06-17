@@ -22,8 +22,8 @@ Docker는 Container 라는 가상화 공간을 생성하기 위해
 
 ## Docker 설치
 
-Windows 는 WSL 설치해야함.
-(Docker Desktop도 설치 권장)
+Windows 는 WSL 설치해야함.  
+(**Docker Desktop 설치 시 WSL 자동 설치 옵션이 있음**으로, 간단하게 설치 가능)
 
 <details>
   <summary>설치하기</summary>
