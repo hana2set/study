@@ -1,4 +1,4 @@
-- ubuntu 네트워크 설정 화면
+- ubuntu 네트워크 설정 화면  
 ![image](https://github.com/user-attachments/assets/1c720a42-c581-4ad4-90b6-a422d05161b8)
 
 
