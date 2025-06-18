@@ -2,7 +2,8 @@
 
 기존의 언어 모델에 외부 지식을 결합하여 더욱 정확하고 최신의 정보를 제공하는 접근 방식. LLMs의 한계를 극복하기 위해 등장.
 
-### LLMs의 문제점
+### 기존 LLMs의 문제점
+
 1. 지식의 한계
 2. 환각 문제
 3. 출처 추적의 어려움
@@ -13,6 +14,8 @@
 1. 정보의 최신성
 2. 정확성 향상
 3. 도메인 적응성
+4. 비용의 효율성
+5. 개선 및 제어가 쉬움
 
 ## RAG의 단점
 1. 계산 복잡성 증가
@@ -27,6 +30,13 @@
 3. 생성
    - 응답 생성
 
+![image](https://github.com/user-attachments/assets/fc5d1e2d-b791-49a3-82b7-1a09d7efd11d)
 
 ## RAG vs. Fine-tuning
 ![Image](https://github.com/user-attachments/assets/51998060-a6ce-430b-bb48-f2fd98f3a7d5)
+
+
+
+---
+
+https://rimo.tistory.com/36

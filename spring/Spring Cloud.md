@@ -8,7 +8,7 @@
 - MSA
 
 
-![cloud-3](https://github.com/user-attachments/assets/07e75e94-38a2-4dd2-bfc7-cb3e7ba16a11)
+![cloud-3](https://github.com/user-attachments/assets/07e75e94-38a2-4dd2-bfc7-cb3e7ba16a11?raw=true)
 
 > [!note]
 > Nexflix에서 Spring Cloud에 구성요소들을 다양하게 지원해왔으나 현재 대부분이 중단된 상태.(Kubernetes 등의 영향으로 생각됨)  
