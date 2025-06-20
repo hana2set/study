@@ -1,0 +1,8 @@
+# 트랜잭션 격리 수준(Isolation Level)
+
+## SERIALIZABLE
+## REPEATABLE READ
+## READ COMMITTED
+## READ UNCOMMITED
+
+ 
