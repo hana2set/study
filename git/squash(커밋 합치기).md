@@ -5,7 +5,7 @@
 
 1. 합치고 싶은 커밋 전의 커밋으로 rebase
     ```
-    git rebase -i 8fc245cb3cc1844452221d9f1ae844cddc4ae668
+    git rebase -i db078dae819cfed46bc6e6ef8c962648f97c22da 
     ```
     * 결과
         ```

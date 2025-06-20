@@ -1,8 +1,11 @@
 ## Optional
 
+> [!note]
 > 요약: 
 > - Optional은 "return 값"에 대한 null 가능성을 표현해야함.
 > - 값(매개변수)이 null임을 체크하고 싶다 -> Ojbects.requireNonNull();
+
+<br>
 
 optional은 악명높은 NFE와 같이 예기치 못한 오류가 발생할 수 있는 시나리오에서 __"값의 부재를 나타내기 위한 return type"__ 을 제공하는 것을 목적으로 설계되었다.
 
