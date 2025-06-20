@@ -29,8 +29,28 @@
     ollama run llama3
     ```
     ![Image](https://github.com/user-attachments/assets/03657c81-649b-4fc3-a320-232dc2c53b72)
+
+
+
+
+## 기타
+
+-  로그 전체 보기
+    ```cmd
+    journalctl -u ollama.service > ollama_logs.txt
+    ```
+- 실시간 로그 조회
+    ```cmd
+    journalctl -u ollama.service -f
+    ```
+
+
+### [Final Words: Do Not Use Ollama](https://ahmadosman.com/blog/do-not-use-llama-cpp-or-ollama-on-multi-gpus-setups-use-vllm-or-exllamav2/)
+> Ollama is a wrapper around llama.cpp, and in my opinion it is a tool that sets environment variables, does a bad job at calculating VRAM splits and offloading, and leads to a lot of frustration. It is great if you have only 1 GPU and don’t want to do much except running basic models for chat sessions; anything beyond that and it isn’t worth using.
+
+
 ---
 
 출처:  
 https://www.hostinger.com/tutorials/what-is-ollama  
-https://picovoice.ai/blog/local-llms-llamacpp-ollama/  
+https://picovoice.ai/blog/local-llms-llamacpp-ollama/   

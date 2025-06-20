@@ -23,11 +23,15 @@
 3. 프라이버시 및 보안
 
 ## RAG의 작동 원리
-1. 검색
+1. 인덱싱
+   - 로드: 데이터 호출 (Document Loaders)
+   - 분할: 데이터를 작은 청크로 나눔
+   - 저장: 저장하고 인덱싱 (VectorStore, Embeddings 모델)
+2. 검색
    - 사용자 질문을 분석하여 키워드를 추출하고, 벡터 유사도 등의 기술을 사용하여 가장 연관성 높은 문서나 정보 선별
-2. 증강
+3. 증강
    - 검색된 정보를 LLM의 입력에 추가(LLM이 효과적으로 활용할 수 있는 형태로 가공)
-3. 생성
+4. 생성
    - 응답 생성
 
 ![image](https://github.com/user-attachments/assets/fc5d1e2d-b791-49a3-82b7-1a09d7efd11d)
@@ -39,4 +43,5 @@
 
 ---
 
-https://rimo.tistory.com/36
+https://rimo.tistory.com/36  
+https://aws.amazon.com/ko/what-is/retrieval-augmented-generation/
