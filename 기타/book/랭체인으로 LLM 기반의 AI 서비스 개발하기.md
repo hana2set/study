@@ -243,7 +243,7 @@ LLM과 랭체인으로 구현한 코드를 웹페이지에서 확인하기 위�
     jupyter notebook
     ```
 5. new로 새로운 소스 만들기
-    [Image](https://github.com/user-attachments/assets/f1828e24-775e-4b27-96a6-42576a0b182f)  
+    ![Image](https://github.com/user-attachments/assets/f1828e24-775e-4b27-96a6-42576a0b182f)  
 6. 프롬프트에서 작업 후 Run으로 확인
-    [Image](https://github.com/user-attachments/assets/b29cd1dc-91c7-4521-9d27-be518064b7c5)
+    ![Image](https://github.com/user-attachments/assets/b29cd1dc-91c7-4521-9d27-be518064b7c5)
 
