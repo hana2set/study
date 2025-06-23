@@ -212,11 +212,38 @@ LLM과 랭체인으로 구현한 코드를 웹페이지에서 확인하기 위�
   - ![Image](https://github.com/user-attachments/assets/c18b2d72-00e4-4620-865f-257f9becdda4)
 
 #### 가상 환경 생성
+1. Anaconda3 > Anaconda Prompt 열기
 1. 예제에 따라 python 3.8로 고정
-  ```console
-  conda create -n llm python=3.8
-  ```
-2. 가상환경 확인
-  ```console
-  conda env list
-  ```
+    ```console
+    conda create -n llm python=3.8
+    ```
+    - 참고
+      ```cmd
+      # 가상환경 확인
+      conda env list
+
+      # 가상환경 삭제
+      conda evn remove -n llm
+      ```
+2. 가상환경 활성화
+    ```cmd
+    # 가상환경 활성화
+    activate llm
+    ```
+3. 가상환경에 주피터 설치
+    ```cmd
+    pip install ipykernel
+    ``` 
+    ```cmd
+    # 커널 연결 설정
+    python -m ipykernel install --user --name llm --display-name "llm"
+    ```
+4. 주피터 실행
+    ```cmd
+    jupyter notebook
+    ```
+5. new로 새로운 소스 만들기
+    [Image](https://github.com/user-attachments/assets/f1828e24-775e-4b27-96a6-42576a0b182f)  
+6. 프롬프트에서 작업 후 Run으로 확인
+    [Image](https://github.com/user-attachments/assets/b29cd1dc-91c7-4521-9d27-be518064b7c5)
+
