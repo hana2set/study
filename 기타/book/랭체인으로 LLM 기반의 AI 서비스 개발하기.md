@@ -203,7 +203,7 @@ LLM과 외부 도구를 엮어 결합시켜 주는 프레임워크.
 LLM과 랭체인으로 구현한 코드를 웹페이지에서 확인하기 위해서는 스트림릿을 사용해야함  
 -> 아나콘다 설치
 
-#### 아나콘다 설치
+#### 1. 아나콘다 설치
 - 다운로드
 - install for: Just Me
 - 경로 기본값
@@ -211,11 +211,11 @@ LLM과 랭체인으로 구현한 코드를 웹페이지에서 확인하기 위�
   - 내 PC > 속성 > 고급 시스템 설정 > 환경 변수
   - ![Image](https://github.com/user-attachments/assets/c18b2d72-00e4-4620-865f-257f9becdda4)
 
-#### 가상 환경 생성
+#### 2. 가상 환경 생성
 1. Anaconda3 > Anaconda Prompt 열기
-1. 예제에 따라 python 3.8로 고정
+1. 예제에 따라 python 3.10로 고정(책과 다름)
     ```console
-    conda create -n llm python=3.8
+    conda create -n llm python=3.10
     ```
     - 참고
       ```cmd
@@ -223,7 +223,7 @@ LLM과 랭체인으로 구현한 코드를 웹페이지에서 확인하기 위�
       conda env list
 
       # 가상환경 삭제
-      conda evn remove -n llm
+      conda env remove -n llm
       ```
 2. 가상환경 활성화
     ```cmd
@@ -242,8 +242,52 @@ LLM과 랭체인으로 구현한 코드를 웹페이지에서 확인하기 위�
     ```cmd
     jupyter notebook
     ```
-5. new로 새로운 소스 만들기
+5. new로 새로운 소스 만들기  
     ![Image](https://github.com/user-attachments/assets/f1828e24-775e-4b27-96a6-42576a0b182f)  
-6. 프롬프트에서 작업 후 Run으로 확인
+6. 프롬프트에서 작업 후 Run으로 확인  
     ![Image](https://github.com/user-attachments/assets/b29cd1dc-91c7-4521-9d27-be518064b7c5)
 
+#### 3. 필요 라이브러리 설치
+```
+pip install langchain
+pip install langchain_community
+pip install openai==0.28.1
+pip install huggingface-hub
+pip install streamlit==1.29.0
+```
+
+> [!note]
+> 오픈AI
+> - 오픈AI에서 제공하는 모델의 API를 호출하는 데 사용
+> 
+> 허깅페이스(Hugging Face)
+> - 인공지능 연구 및 개발을 위한 도구. 특히 자연어 처리 분야의 거대 언어 모델과 이를 쉽게 사용할 수 있는 API, 관련 라이브러리를 제공함.
+>
+> 스트림릿 (streamlit)
+> - 파이썬으로 머신러닝을 위한 웹 애플리케이션을 빠르고 쉽게 개발할 수 있는 오픈소스 라이브러리
+
+
+#### 4. 키 발급
+- 오픈AI 키를 발급함 (sk-...) (유료 추천. 토큰 제한 있음)
+- 허깅페이스LLM 키 발급 (hf-...)
+- 코드에 입력
+  ```py
+  import os
+  os.environ["OPENAI_API_KEY"] = "sk-XXXXXXXXXXX..."
+  os.environ["HUGGINGFACEHUB_API_TOKKEN"] = "hf-XXXXXX..."
+  ```
+
+## 4.3 랭체인 주요 모듈 ([실습예제](https://github.com/gilbutITbook/080413) 확인)
+![image](https://github.com/user-attachments/assets/1601e522-6c2a-431c-a257-dd9ed529ab2b)
+랭체인: LLM을 잘 활용할 수 있도록 하는 모듈의 모음
+- 모델 I/O
+- 데이터 연결
+- 체인
+- 메모리
+- 에이전트/툴
+
+### 모델 I/O
+언어 모델과 상호 작용을 위한 모듈
+- LLM에 전달될 프롬프트 생성
+- 답변을 받기 위해 모델 API 호출
+- 답변에 대한 출력
