@@ -278,7 +278,7 @@ pip install streamlit==1.29.0
   ```
 
 ## 4.3 랭체인 주요 모듈 ([실습예제](https://github.com/gilbutITbook/080413) 확인)
-![image](https://github.com/user-attachments/assets/1601e522-6c2a-431c-a257-dd9ed529ab2b)
+![image](https://github.com/user-attachments/assets/1601e522-6c2a-431c-a257-dd9ed529ab2b)  
 랭체인: LLM을 잘 활용할 수 있도록 하는 모듈의 모음
 - 모델 I/O
 - 데이터 연결
@@ -287,7 +287,36 @@ pip install streamlit==1.29.0
 - 에이전트/툴
 
 ### 모델 I/O
+![image](https://github.com/user-attachments/assets/c45b66e5-5987-453c-9e2e-938dd2cdb7a9)
 언어 모델과 상호 작용을 위한 모듈
 - LLM에 전달될 프롬프트 생성
 - 답변을 받기 위해 모델 API 호출
 - 답변에 대한 출력
+
+#### 출력 파서
+- PydanticOutputParser: 정의된 필드에 맞게 출력
+- SimpleJsonOutputParser
+- CommaSeparatedListOutputParser
+- DatetimeOutputParser
+- XMLOutputParser
+
+#### 데이터 연결
+![image](https://github.com/user-attachments/assets/d4cacbb5-73a6-4d69-86f0-9d6649f059a4)
+1. 문서 가져오기(document loaders)
+2. 문서 변환(document trasformers): 데이터 -> 청크[^chunk]
+3. 문서 임베딩(embedding model): 데이터 -> 벡터
+4. 벡터 저장소(vector stores): 벡터를 저장/관리/검색
+5. 검색기(retrievers): 정보 검색
+   
+
+
+
+
+
+[^chunk]: 큰 데이터 덩어리를 다루기 쉬운 작은 조각으로 나눈 것 
+
+
+--- 
+출처:
+- 이미지
+  - 
