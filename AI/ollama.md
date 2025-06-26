@@ -31,6 +31,31 @@
     ![Image](https://github.com/user-attachments/assets/03657c81-649b-4fc3-a320-232dc2c53b72)
 
 
+## 모델 크기에 따른 메모리(RAM) 추천
+- Small models (7B)
+    - Minimum RAM: 8GB
+    - Recommended RAM: 16GB
+- Medium models (13B)
+  - Minimum RAM: 16GB
+  - Recommended RAM: 32GB
+- Large models (70B)
+  - Minimum RAM: 64GB
+  - Recommended RAM: 128GB
+
+> [!tip]
+> 항상 권장 최소 메모리보다 더 많은 메모리를 할당할 것!
+> - 성능 병목 현상 방지 가능
+> 
+> 가장 큰 모델을 선택할 필요는 없다!  
+> - 가벼운 작업, 빠른 추론(대화형 AI) 정도는 소형 모델(7B)로 충분.
+>
+> 양자화 기술(Quantization techniques)로 필요 메모리를 획기적으로 줄일 수 있음.  
+>
+> 
+
+
+출처: [How much memory does ollama need?](https://www.byteplus.com/en/topic/405436?title=how-much-memory-does-ollama-need)
+
 
 
 ## 기타
@@ -43,6 +68,21 @@
     ```cmd
     journalctl -u ollama.service -f
     ```
+- WSL 서버 죽이기 (VmmemWSL이 높은 메모리를 차지하고 살아있음) 
+    ```cmd
+    # window 에서 실행
+    wsl --shutdown
+
+    # 하나씩 죽이기
+    wsl --list --running
+    wsl --terminate <distroName>
+    ```
+
+## 에러
+-   ```
+    CUDA error: an illegal memory access was encountered
+    ```
+    CPU 메모리가 부족해서 발생하는 문제. 
 
 
 ### [Final Words: Do Not Use Ollama](https://ahmadosman.com/blog/do-not-use-llama-cpp-or-ollama-on-multi-gpus-setups-use-vllm-or-exllamav2/)
