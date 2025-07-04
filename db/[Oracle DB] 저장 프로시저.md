@@ -55,6 +55,15 @@ END;
 
     -- 3
     EXEC get_customer_info(101);
+
+
+    -- OUT 이 포함된 프로시저
+    DECLARE
+      outtxt VARCHAR2(100);
+    BEGIN
+      proc_get_customer_info('1005', outtxt);
+    END;
+
     ```
 
 [^1]: 
