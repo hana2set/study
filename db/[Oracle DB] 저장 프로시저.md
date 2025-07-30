@@ -62,6 +62,7 @@ END;
       outtxt VARCHAR2(100);
     BEGIN
       proc_get_customer_info('1005', outtxt);
+      DBMS_OUTPUT.PUT_LINE(outtxt);
     END;
 
     ```
