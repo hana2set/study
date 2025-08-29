@@ -29,3 +29,11 @@
 
 ### serialVersionUID 추가
 ![image](https://github.com/hana2set/study/assets/97689567/d218b039-110e-4881-8c17-7b9cd3810f58)
+
+
+
+### git 커밋 사용자 변경 (IDE에서만)
+```
+git config --local user.name "hana2set"
+git config --local user.email "devkim4251@gmail.com"
+```
