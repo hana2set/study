@@ -55,7 +55,31 @@ END;
 
     -- 3
     EXEC get_customer_info(101);
+
+
+    -- OUT 이 포함된 프로시저
+    DECLARE
+      outtxt VARCHAR2(100);
+    BEGIN
+      proc_get_customer_info('1005', outtxt);
+      DBMS_OUTPUT.PUT_LINE(outtxt);
+    END;
+
     ```
+
+## 조회
+- 프로시저명 조회
+  ```sql
+  SELECT *
+  FROM USER_PROCEDURES
+  WHERE OBJECT_NAME LIKE '%%';
+  ```
+- 프로시저 내용 조회
+  ```sql
+  SELECT *
+  FROM USER_SOURCE
+  WHERE TEXT LIKE '%%'
+  ```
 
 [^1]: 
 [^2]: [Oracle Stored Procedure, 꼭 알아야 할 데이터베이스의 필수 개념과 활용법](https://digitalbourgeois.tistory.com/343)

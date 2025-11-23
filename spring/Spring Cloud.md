@@ -19,6 +19,54 @@
 
 Spring WebFlux 기반의 API 게이트웨이.
 
+### 사용법
+1. Gateway 어플리케이션 생성
+    ```gradle
+    // spring boot 3.5.0 기준
+
+    ext {
+        set('springCloudVersion', "2025.0.0")
+    }
+
+    ...
+
+    dependencies {
+        ...
+        implementation 'org.springframework.cloud:spring-cloud-starter-gateway-server-webflux'
+    }
+
+    ...
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+
+    ```
+2. application.yml에 정보 등록
+    ```yml
+    spring.application.name: gateway
+    server:
+    port: 8000
+
+    spring:
+    cloud:
+        consul:
+        host: localhost
+        port: 8500
+        gateway:
+        routes:
+            - id: multiplications
+            uri: lb://social-multiplication  #load_balancer://<spring.application.name>
+            predicates:
+                - Path=/api/multiplications/**
+            - id: results
+            uri: lb://social-multiplication/results
+            predicates:
+                - Path=/api/results/**
+    ```
+
 ## [Spring Cloud Consul](https://spring.io/projects/spring-cloud-consul)
 
 Spring Boot 앱에 대한 대규모 분산 처리를 도와주는 도구. 주로 `Service Discovery`, `Service Registry`, `LoadBalancer` 역할을 담당할 수 있음.  
@@ -36,4 +84,19 @@ Eureka와 다르게, consul 서버는 별도 Java App이 필요없음(Third Part
     ```docker
     docker run -d --name=consul -p 8500:8500 consul:latest
     ```
-4. 
+
+
+## [Spring Cloud Circuit Breaker](https://spring.io/projects/spring-cloud-circuitbreaker#overview)
+"서킷 브레이커"가 구현되어 있는 라이브러리.(실패 요청을 최소화하기 위한 패턴) `Resilience4J`와 `Retry`로 구성되어있다. (`Netflix Hystrix`의 대체로 적합)
+- 주요 컴포넌트[^circuit1]
+  - Circuit Breaker: 서비스 호출 실패를 감지하고 자동으로 보호.
+  - Retry: 서비스가 실패하면 자동으로 재시도.
+  - Rate Limiter: 특정 시간 동안 호출할 수 있는 횟수를 제한.
+  - Bulkhead: 병렬로 실행되는 작업의 최대 수를 제한하여 시스템 보호.
+  - Time Limiter: 서비스 호출이 일정 시간 안에 완료되지 않으면 타임아웃 처리.
+
+
+
+
+[^circuit1]: https://digitalbourgeois.tistory.com/395  
+https://resilience4j.readme.io/docs/getting-started-3

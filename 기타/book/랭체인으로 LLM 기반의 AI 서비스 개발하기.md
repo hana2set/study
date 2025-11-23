@@ -134,10 +134,10 @@ LLM이 스스로 정보를 검색(Retrieval)하여 텍스트를 생성(Generatio
    1. 질문 입력(쿼리, query)
    2. 검색
    3. 유사도 검색
-     - 키워드 검색
-     - 시맨틱 검색: 문맥을 이해하여 보다 관련성 높은 결과를 제공하는 기술
+      - 키워드 검색
+      - 시맨틱 검색: 문맥을 이해하여 보다 관련성 높은 결과를 제공하는 기술
    4. 랭킹 처리: 검색 결과에 유사도 순위를 매김
-      1. 유사도 계산 (코사인 유사도)
+      1. 유사도 계산 (코사인 유사도, 유클리드 유사도)
       2. 문맥과 의도 파악
       3. 랭킹 산출
 > [!tip]
@@ -150,7 +150,7 @@ LLM이 스스로 정보를 검색(Retrieval)하여 텍스트를 생성(Generatio
 >   - TF-IDF: 나타나는 빈도로 가중치
 >     - 단어 빈도, 문서빈도
 >   - 클릭률(CTR)
-2. 텍스트 생성(generation)
+1. 텍스트 생성(generation)
    1. 결과 반환
    2. 텍스트 생성
 
@@ -203,7 +203,7 @@ LLM과 외부 도구를 엮어 결합시켜 주는 프레임워크.
 LLM과 랭체인으로 구현한 코드를 웹페이지에서 확인하기 위해서는 스트림릿을 사용해야함  
 -> 아나콘다 설치
 
-#### 아나콘다 설치
+#### 1. 아나콘다 설치
 - 다운로드
 - install for: Just Me
 - 경로 기본값
@@ -211,12 +211,229 @@ LLM과 랭체인으로 구현한 코드를 웹페이지에서 확인하기 위�
   - 내 PC > 속성 > 고급 시스템 설정 > 환경 변수
   - ![Image](https://github.com/user-attachments/assets/c18b2d72-00e4-4620-865f-257f9becdda4)
 
-#### 가상 환경 생성
-1. 예제에 따라 python 3.8로 고정
-  ```console
-  conda create -n llm python=3.8
+#### 2. 가상 환경 생성
+1. Anaconda3 > Anaconda Prompt 열기
+1. 예제 버그가 많아서 python 3.13 설치 (책과 다름)
+    ```console
+    conda create -n llm
+    # conda create -n llm python=3.8
+    ```
+    - 참고
+      ```cmd
+      # 가상환경 확인
+      conda env list
+
+      # 가상환경 삭제
+      conda env remove -n llm
+      ```
+2. 가상환경 활성화
+    ```cmd
+    # 가상환경 활성화
+    activate llm
+    ```
+3. 가상환경에 주피터 설치
+    ```cmd
+    pip install ipykernel
+    ``` 
+    ```cmd
+    # 커널 연결 설정
+    python -m ipykernel install --user --name llm --display-name "llm"
+    ```
+4. 주피터 실행
+    ```cmd
+    jupyter notebook
+    ```
+5. new로 새로운 소스 만들기  
+    ![Image](https://github.com/user-attachments/assets/f1828e24-775e-4b27-96a6-42576a0b182f)  
+6. 프롬프트에서 작업 후 Run으로 확인  
+    ![Image](https://github.com/user-attachments/assets/b29cd1dc-91c7-4521-9d27-be518064b7c5)
+7. vscode에 jupyter 플러그인 설치 후 프로젝트 연동
+
+#### 3. 필요 라이브러리 설치
+```
+pip install langchain
+pip install langchain_community
+pip install openai
+pip install huggingface-hub
+pip install streamlit
+```
+
+> [!note]
+> 오픈AI
+> - 오픈AI에서 제공하는 모델의 API를 호출하는 데 사용
+> 
+> 허깅페이스(Hugging Face)
+> - 인공지능 연구 및 개발을 위한 도구. 특히 자연어 처리 분야의 거대 언어 모델과 이를 쉽게 사용할 수 있는 API, 관련 라이브러리를 제공함.
+>
+> 스트림릿 (streamlit)
+> - 파이썬으로 머신러닝을 위한 웹 애플리케이션을 빠르고 쉽게 개발할 수 있는 오픈소스 라이브러리
+
+
+#### 4. 키 발급
+- 오픈AI 키를 발급함 (sk-...) (유료 추천. 토큰 제한 있음)
+- 허깅페이스LLM 키 발급 (hf-...)
+- 코드에 입력
+  ```py
+  import os
+  os.environ["OPENAI_API_KEY"] = "sk-XXXXXXXXXXX..."
+  os.environ["HUGGINGFACEHUB_API_TOKKEN"] = "hf-XXXXXX..."
   ```
-2. 가상환경 확인
-  ```console
-  conda env list
+
+## 4.3 랭체인 주요 모듈 ([실습예제](https://github.com/gilbutITbook/080413) 확인)
+![image](https://github.com/user-attachments/assets/1601e522-6c2a-431c-a257-dd9ed529ab2b)  
+랭체인: LLM을 잘 활용할 수 있도록 하는 모듈의 모음
+- 모델 I/O
+- 데이터 연결
+- 체인
+- 메모리
+- 에이전트/툴
+
+> [!warning]
+> openAI는 유료이고, huggingface-hub는 에러가 있어서 ollama로 진행함.
+> ```console
+> pip install langchain-ollama
+> ```
+> 
+> ```py
+> from langchain_community.llms import Ollama
+>
+> llm3 = Ollama(model="exaone3.5:2.4b")
+> 
+> prompt = "진희는 강아지를 키우고 있습니다. 진희가 키우고 있는 동물은?"
+> completion = llm3.invoke(prompt)
+> print(completion)
+> ```
+
+### 1. 모델 I/O
+![image](https://github.com/user-attachments/assets/c45b66e5-5987-453c-9e2e-938dd2cdb7a9)
+언어 모델과 상호 작용을 위한 모듈
+- LLM에 전달될 프롬프트 생성
+- 답변을 받기 위해 모델 API 호출
+- 답변에 대한 출력
+
+#### 출력 파서
+- `from langchain.output_parsers` 에서 제공
+  - PydanticOutputParser: 정의된 필드에 맞게 출력
+  - SimpleJsonOutputParser
+  - CommaSeparatedListOutputParser
+  - DatetimeOutputParser
+  - XMLOutputParser
+
+### 2. 데이터 연결
+![image](https://github.com/user-attachments/assets/d4cacbb5-73a6-4d69-86f0-9d6649f059a4)
+- 순서
+  1. 문서 가져오기(document `loaders`)
+  2. 문서 변환(document `trasformers`): 데이터 -> 청크[^chunk]
+  3. 문서 임베딩(`embedding` model): 데이터 -> 벡터
+  4. 벡터 저장소(`vector stores`): 벡터를 저장/관리/검색
+  5. 검색기(`retrievers`): 정보 검색
+- 관련 라이브러리
+  - `pypdf`(5.6.1): 파이썬에서 pdf 다루기용
+  - `tiktoken`(0.9.0): 오픈AI에서 제공하는 임베딩 라이브러리
+  - `faiss-cpu`(1.7.4): 페이스북에서 AI 라이브러리, 벡터 유사도 검색
+  - `sentence-transformers`(2.2.2): 자연어 처리에서 문장 또는 단락을 벡터로 변환
+    ```
+    pip install pypdf
+    pip install tiktoken
+    pip install faiss-cpu
+    pip install sentence-transformers
+    ```
+
+
+### 3. 체인
+여러 구성 요소를 조합해 하나의 파이프라인을 구성해주도록 함.  
+- (예시. 번역하는 LLM1과 요약하는 LLM2를 합쳐 하나의 파이프라인으로 구성해줌)
+  
+  ```py
+  #프롬프트1 정의
+  prompt1 = PromptTemplate(
+      input_variables=['sentence'],
+      template="다음 문장을 한글로 번역하세요.\n\n{sentence}"
+  )
+
+  #번역(체인1)에 대한 모델
+  chain1 = LLMChain(llm=llm, prompt=prompt1, output_key="translation")
+
+  #프롬프트2 정의
+  prompt2 = PromptTemplate.from_template(
+      "다음 문장을 한 문장으로 요약하세요.\n\n{translation}"
+  )
+  #요약(체인2)에 대한 모델
+  chain2 = LLMChain(llm=llm, prompt=prompt2, output_key="summary")
+
+  from langchain.chains import SequentialChain
+  all_chain = SequentialChain(
+      chains=[chain1, chain2],
+      input_variables=['sentence'],
+      output_variables=['translation','summary'],
+  )
+  sentence="""
+  """
+  all_chain.invoke(sentence)
   ```
+
+### 4. 메모리
+다음과 같은 형태로 저장 가능
+- 모든 대화 유지
+- 최근 k개의 대화 유지
+- 대화를 요약해서 유지
+
+> [!tip]
+> ConversationChain deprecated -> RunnableWithMessageHistory로 대체 
+
+### 5. 에이전트/툴
+일반적인 데이터로 학습해, 특정한 산업에 특화되지 않음. 이러한 한계를 극복하기 위한 툴.  
+- 예: 위키피디아, 빙과 같은 툴과 연계
+- agent는 langGraph로 마이그레이션 된다고 하니 참고
+```
+# 위키피디아 기사 검색용
+!pip install wikipedia
+
+# 연산
+!pip install numexpr
+```
+
+## 5. 실전 예제. 상세 내용 패스
+
+```cmd
+# 벡터 데이터베이스
+pip install chromadb
+
+# 문장 -> 벡터, 의미적 유사성 계산
+pip install sentence-transformers
+
+# 텍스트 파일 같은 구조화되지 않은 데이터 다루는 용도
+pip install unstructured
+
+# PyPDF와 비슷. 읽기, 분할, 병합, 순서 바꾸기, 암호화 등 제공
+pip install PyPDF2
+
+# 벡터 검색을 위한 인덱싱 및 검색 알고리즘
+pip install faiss-cpu
+
+# 챗봇 사용자 인터페이스 생성용 streamlit
+pip install streamlit-chat
+
+# langchain에서 외부 데이터 소스(판다스) 연결용 라이브러리
+pip install langchain-experimental
+
+# 데이터 조작 및 분석용 라이브러리
+pip install pandas
+
+# 테이블 형태의 데이터를 보기 쉽게 출력
+pip install tabulate
+```
+
+
+## 6. 실제 사용처?
+- 콜센터 상담원 대체 혹은 돕는 도구
+  - 대화 내용 스크립트 생성
+  - 상품 리뉴얼 관련 지식 교육용 스크립트 생성
+- 상품 추천
+- 보험 언더라이팅
+- 코드 생성 및 리뷰
+- 문장 생성
+- M365 코파일럿
+
+[^chunk]: 큰 데이터 덩어리를 다루기 쉬운 작은 조각으로 나눈 것 
+
