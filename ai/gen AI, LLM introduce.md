@@ -1,0 +1,66 @@
+# 기초
+![image](https://github.com/hana2set/study/assets/97689567/13e49203-a666-46e2-ab0b-3533d0d09010)
+
+- AI는 인간처럼 생각하고 행동하는 머신을 빌드하기 위한 이론 및 방법
+    - ( = 컴퓨터 시스템에 예제를 통해 학습할 수 있는 능력을 부여하는 것 )
+- ML은 __입력데이터로 모델을 학습시키려는 프로그램__
+
+![image](https://github.com/hana2set/study/assets/97689567/da047711-8810-4844-9109-964fe11dfbc6)
+- LLM, Gen AI 모두 Deep Learning에 포함되고 교차점이 있음
+- 기존 AI와 다르게 생성형 AI는 기존 콘텐츠에서 학습한 내용을 기반으로 __새로운 콘텐츠를 생성__ 한다는 게 핵심
+    - ( = 다음 출력을 예측 )
+
+<br>
+
+고전적인 학습
+![image](https://github.com/hana2set/study/assets/97689567/bc81c394-580b-4b4d-bbeb-5c9206cd736c)
+- 분류된 데이터로 __예측, 구분, 클러스터링__
+
+<br>
+
+### 생성형 AI
+![image](https://github.com/hana2set/study/assets/97689567/954a411f-1874-4545-ac1a-b29ac130de61)
+- 데이터를 통해 새로운 데이터를 __생성__
+- 생성 AI 도구  
+    - Generative AI App Builder
+
+<br>
+
+### 대규모 언어 모델(LLM)
+선행 학습을 진행한 후 특정 목적에 맞게 미세 조정할 수 있는 대규모 범용 언어 모델
+- 학습 데이터 세트가 대규모
+- 매개변수의 수가 대규모 (초매개변수)
+    - `매개변수`: 모델 학습에서 학습한 메모리와 지식
+- 범용 > 일반적인 문제를 해결하는 데 충분
+
+<br>
+
+- 이러한 특징 때문에 특정 조직만이 LLM 학습이 가능
+    - 선행 학습 후 미세 조정해서 다른 조직이 사용할 수 있게 만듬
+
+#### LLM 이점
+- 단일 모델을 여러 작업 (텍스트 요약 및 코드 생성 등)에 사용 가능
+- 최소한의 필드 학습 데이터만 있으면 모델을 조정하여 특정 문제를 해결
+- 지속적으로 개선됨
+- 인간과 흡사한 수준의 텍스트를 생성
+
+<br> 
+
+- 관련 도구
+    - `PaLM`: 고밀도 디코더 전용 Transformer 모델
+    - Vertex AI
+    - LaMDA
+
+
+
+<br> 
+
+#### 용어 
+지도학습, 비지도학습, 할루시네이션
+    
+
+> 출처:  
+https://www.cloudskillsboost.google/course_templates/536/video/434921?locale=ko  
+https://www.cloudskillsboost.google/course_templates/539/video/414765?locale=ko  
+https://www.cloudskillsboost.google/course_templates/554/video/433700?locale=ko  
+https://blog.google/inside-google/googlers/ask-a-techspert/what-is-generative-ai/  
