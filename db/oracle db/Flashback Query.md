@@ -1,4 +1,4 @@
-# Flashback Query
+# 플래시백 쿼리(Flashback Query)
 특정 시점의 테이블 데이터를 조회하는 기능.
 
 ## 과거 데이터 복구
